@@ -160,7 +160,8 @@ export default function EcoPledgerPage() {
     setName(data.name);
     startTransition(async () => {
       try {
-        const result = await handleGeneratePledge(data);
+        const currentDate = new Date().toLocaleDateString();
+        const result = await handleGeneratePledge({ ...data, currentDate });
         setPledge(result);
         setShowPledge(true);
       } catch (error) {

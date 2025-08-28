@@ -40,6 +40,7 @@ export const LifestyleQuestionsSchema = z.object({
     .describe(
       'How often do you fly per year? Options: never, 1-2 times, 3-5 times, more than 5 times'
     ),
+  currentDate: z.string().describe("The current date of the pledge.")
 });
 
 export type EcoPledgeInput = z.infer<typeof LifestyleQuestionsSchema>;
@@ -57,6 +58,7 @@ export type EcoPledgeOutput = z.infer<typeof EcoPledgeOutputSchema>;
 export const CertificateInputSchema = z.object({
     name: z.string().describe("The user's name for the certificate."),
     pledge: z.string().describe('The personalized eco-pledge text.'),
+    date: z.string().describe('The date for the certificate.')
 });
   
 export type CertificateInput = z.infer<typeof CertificateInputSchema>;

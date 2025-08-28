@@ -97,7 +97,7 @@ const ecoPledgeFlow = ai.defineFlow(
     // Step 2: Generate certificate
     try {
       console.log('Starting certificate generation...');
-      const certificateResult = await generateCertificate({ name: input.name, pledge: output.pledge });
+      const certificateResult = await generateCertificate({ name: input.name, pledge: output.pledge, date: input.currentDate });
       if (certificateResult?.certificateUrl) {
         output.certificateUrl = certificateResult.certificateUrl;
         console.log('Successfully generated certificate.');

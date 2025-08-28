@@ -33,7 +33,7 @@ const generateCertificateFlow = ai.defineFlow(
     Recipient's Name: "${input.name}"
     Pledge Statement: "${input.pledge}"
     Signature Line: "____________________"
-    Date: "${new Date().toLocaleDateString()}"
+    Date: "${input.date}"
     
     The layout should be balanced and professional.`;
 
