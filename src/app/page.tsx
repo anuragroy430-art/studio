@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, Award, Users, TreePine, Target } from 'lucide-react';
+import { Leaf, Award, Users, TreePine, Target, Gauge } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
 
@@ -22,6 +22,7 @@ export default function LandingPage() {
           <nav className="hidden md:flex gap-6 items-center">
             <Link href="/pledge" className="text-primary font-medium hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary font-medium hover:underline">Challenges</Link>
+            <Link href="/dashboard" className="text-primary font-medium hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary font-medium hover:underline">Community</Link>
           </nav>
         </div>
@@ -100,7 +101,7 @@ export default function LandingPage() {
                 <p>Our AI generates a unique, personalized pledge with measurable goals and motivational tips.</p>
               </CardContent>
             </Card>
-            <Card className="text-center shadow-lg">
+             <Card className="text-center shadow-lg">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Target className="w-8 h-8 text-accent-foreground" />
@@ -114,12 +115,12 @@ export default function LandingPage() {
             <Card className="text-center shadow-lg">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
-                  <Users className="w-8 h-8 text-accent-foreground" />
+                  <Gauge className="w-8 h-8 text-accent-foreground" />
                 </div>
-                <CardTitle>Join the Community</CardTitle>
+                <CardTitle>Track Your Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <p>See the collective impact of all pledges on our community map and feel the power of shared goals.</p>
+                <p>Use your personal dashboard to log your activities, track your impact, and earn badges for your commitment.</p>
               </CardContent>
             </Card>
           </div>
@@ -140,7 +141,7 @@ export default function LandingPage() {
               <Link href="/pledge">Take the Eco-Pledge Test</Link>
             </Button>
              <Button asChild size="lg" variant="secondary" className="text-lg py-7 px-10">
-              <Link href="/challenges">Get a Daily Challenge</Link>
+              <Link href="/dashboard">Go to Your Dashboard</Link>
             </Button>
           </div>
         </div>

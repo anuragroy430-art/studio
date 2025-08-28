@@ -57,6 +57,7 @@ export default function ChallengesPage() {
           </Link>
           <nav className="flex gap-4">
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
+            <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
           </nav>
         </div>

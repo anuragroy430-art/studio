@@ -63,6 +63,7 @@ export default function CommunityPage() {
           <nav className="flex gap-4">
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
+            <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
           </nav>
         </div>
       </header>
