@@ -79,6 +79,7 @@ export default function DashboardPage() {
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
             <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
+            <Link href="/education" className="text-primary hover:underline">Learn</Link>
           </nav>
         </div>
       </header>

@@ -181,6 +181,7 @@ export default function GamePage() {
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
+            <Link href="/education" className="text-primary hover:underline">Learn</Link>
           </nav>
         </div>
       </header>

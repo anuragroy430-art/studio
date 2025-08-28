@@ -5,7 +5,8 @@ import {
 } from '@/ai/flows/eco-pledge-generator';
 import { askEcoBot } from '@/ai/flows/eco-bot-flow';
 import { generateEcoChallenge } from '@/ai/flows/generate-challenge-flow';
-import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput } from '@/ai/schemas';
+import { generateEducationalContent } from '@/ai/flows/generate-education-content-flow';
+import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput, EducationContentInput, EducationContentOutput } from '@/ai/schemas';
 
 export async function handleGeneratePledge(
   data: EcoPledgeInput
@@ -40,5 +41,17 @@ export async function handleGenerateChallenge(
     } catch (error) {
         console.error('Error generating eco challenge:', error);
         throw new Error('Failed to generate your eco challenge. Please try again.');
+    }
+}
+
+export async function handleGenerateEducationContent(
+    data: EducationContentInput
+): Promise<EducationContentOutput> {
+    try {
+        const contentData = await generateEducationalContent(data);
+        return contentData;
+    } catch (error) {
+        console.error('Error generating educational content:', error);
+        throw new Error('Failed to generate your educational content. Please try again.');
     }
 }

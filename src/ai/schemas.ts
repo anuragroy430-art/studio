@@ -100,3 +100,14 @@ export const GenerateForestVideoOutputSchema = z.object({
     contentType: z.string().describe('The content type of the video.'),
 });
 export type GenerateForestVideoOutput = z.infer<typeof GenerateForestVideoOutputSchema>;
+
+export const EducationContentInputSchema = z.object({
+    topic: z.string().describe("The sustainability topic the user wants to learn about."),
+});
+export type EducationContentInput = z.infer<typeof EducationContentInputSchema>;
+
+export const EducationContentOutputSchema = z.object({
+    title: z.string().describe("The catchy and informative title of the article."),
+    content: z.string().describe("The full content of the article, formatted with markdown (e.g., using # for titles, ## for headings, and * for list items)."),
+});
+export type EducationContentOutput = z.infer<typeof EducationContentOutputSchema>;
