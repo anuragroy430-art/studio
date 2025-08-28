@@ -27,9 +27,14 @@ export default function LandingPage() {
           <p className="text-lg md:text-2xl mt-4 max-w-3xl mx-auto">
             Discover your environmental impact and commit to a greener future.
           </p>
-          <Button asChild size="lg" className="mt-8 bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 px-10">
-            <Link href="/pledge">Take the Test</Link>
-          </Button>
+          <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 px-10">
+              <Link href="/pledge">Take the Test</Link>
+            </Button>
+            <Button asChild size="lg" variant="secondary" className="text-lg py-7 px-10">
+              <Link href="/community">View Community Impact</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -80,10 +85,10 @@ export default function LandingPage() {
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Users className="w-8 h-8 text-accent-foreground" />
                 </div>
-                <CardTitle>Share & Inspire</CardTitle>
+                <CardTitle>Join the Community</CardTitle>
               </CardHeader>
               <CardContent>
-                <p>Share your commitment with friends and family to inspire a collective movement for change.</p>
+                <p>See the collective impact of all pledges on our community map and feel the power of shared goals.</p>
               </CardContent>
             </Card>
           </div>
@@ -99,9 +104,14 @@ export default function LandingPage() {
           <p className="text-lg text-foreground/80 mb-8 max-w-2xl mx-auto">
             Join thousands of others in making a positive impact on our planet. Your journey to a more sustainable lifestyle starts now.
           </p>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 px-10">
-            <Link href="/pledge">Take the Eco-Pledge Test</Link>
-          </Button>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 px-10">
+              <Link href="/pledge">Take the Eco-Pledge Test</Link>
+            </Button>
+             <Button asChild size="lg" variant="secondary" className="text-lg py-7 px-10">
+              <Link href="/community">View Community Impact</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
