@@ -6,7 +6,7 @@ import { Users, Droplets, Leaf, BarChart } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import { LatLngExpression } from 'leaflet';
+import type { LatLngExpression } from 'leaflet';
 
 // Dynamically import the map to prevent SSR issues with Leaflet
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
@@ -19,6 +19,7 @@ const WorldMap = ({ pins }: { pins: { lat: number; lng: number; city: string }[]
   // Since leaflet is client-side only, we need to handle icon loading carefully
   useEffect(() => {
     (async () => {
+      const L = (await import('leaflet'));
       // @ts-ignore
       delete L.Icon.Default.prototype._getIconUrl;
       // @ts-ignore
