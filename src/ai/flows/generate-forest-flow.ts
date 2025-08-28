@@ -42,8 +42,7 @@ const generateForestFlow = ai.defineFlow(
     // Wait until the operation completes. This may take some time.
     while (!operation.done) {
         console.log('Checking video generation status...');
-        // Add a delay to avoid hitting rate limits while polling
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // Add delay before next check
         operation = await ai.checkOperation(operation);
     }
 
