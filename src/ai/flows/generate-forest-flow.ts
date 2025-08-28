@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Generates a video of a forest growing using a text-to-video model.
@@ -57,7 +58,7 @@ const generateForestFlow = ai.defineFlow(
         throw new Error('Failed to find the generated video');
     }
 
-    console.log('Successfully generated forest video.');
+    console.log('Successfully generated forest video. Now downloading...');
     
     // The URL from Veo is temporary and needs an API key.
     // Fetch it on the server and convert to a data URI.
@@ -66,7 +67,7 @@ const generateForestFlow = ai.defineFlow(
       `${video.media.url}&key=${process.env.GEMINI_API_KEY}`
     );
 
-    if (!videoDownloadResponse.ok) {
+    if (!videoDownloadResponse.ok || !videoDownloadResponse.body) {
       throw new Error(`Failed to download video: ${videoDownloadResponse.statusText}`);
     }
 
@@ -74,6 +75,8 @@ const generateForestFlow = ai.defineFlow(
     const videoBase64 = Buffer.from(videoBuffer).toString('base64');
     const contentType = video.media.contentType || 'video/mp4';
     const dataUri = `data:${contentType};base64,${videoBase64}`;
+
+    console.log('Video downloaded and converted to data URI successfully.');
 
     return {
         videoUrl: dataUri, 
