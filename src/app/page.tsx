@@ -41,15 +41,17 @@ export default function LandingPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 p-4">
-          <div className="flex justify-center items-center gap-4 mb-4">
-            <Leaf className="w-16 h-16 text-primary" />
-            <h1 className="text-5xl md:text-7xl font-bold font-headline text-white">
-              EcoPledger
-            </h1>
+          <div className="flex justify-center items-center gap-4 mb-4 flex-col">
+            <div className="flex items-center gap-4">
+              <Leaf className="w-16 h-16 text-primary" />
+              <h1 className="text-5xl md:text-7xl font-bold font-headline text-white">
+                EcoPledger
+              </h1>
+            </div>
+            <p className="text-lg md:text-2xl mt-4 max-w-3xl mx-auto">
+              Discover your environmental impact and commit to a greener future.
+            </p>
           </div>
-          <p className="text-lg md:text-2xl mt-4 max-w-3xl mx-auto">
-            Discover your environmental impact and commit to a greener future.
-          </p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 px-10">
               <Link href="/pledge">Take the Test</Link>
