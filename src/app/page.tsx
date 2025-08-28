@@ -8,8 +8,27 @@ import { EcoBot } from '@/components/EcoBot';
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-20 bg-card/80 backdrop-blur-sm shadow-sm">
+        <div className="container mx-auto px-4 flex justify-between items-center py-4">
+          <Link href="/" className="inline-block">
+            <div className="flex items-center gap-3">
+              <Leaf className="w-8 h-8 text-primary" />
+              <h1 className="text-2xl font-bold font-headline text-primary">
+                EcoPledger
+              </h1>
+            </div>
+          </Link>
+          <nav className="hidden md:flex gap-6 items-center">
+            <Link href="/pledge" className="text-primary font-medium hover:underline">Take the Pledge</Link>
+            <Link href="/challenges" className="text-primary font-medium hover:underline">Challenges</Link>
+            <Link href="/community" className="text-primary font-medium hover:underline">Community</Link>
+          </nav>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white">
+      <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white pt-20">
         <Image
           src="https://picsum.photos/1600/900"
           alt="Lush green forest"
