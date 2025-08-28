@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Leaf, Award, Users, TreePine } from 'lucide-react';
 import Image from 'next/image';
+import { EcoBot } from '@/components/EcoBot';
 
 export default function LandingPage() {
   return (
@@ -119,6 +120,8 @@ export default function LandingPage() {
       <footer className="py-8 bg-background text-center text-foreground/60">
         <p>&copy; {new Date().getFullYear()} EcoPledger. All rights reserved.</p>
       </footer>
+
+      <EcoBot />
     </div>
   );
 }

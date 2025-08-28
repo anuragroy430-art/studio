@@ -68,3 +68,17 @@ export const CertificateOutputSchema = z.object({
 });
 
 export type CertificateOutput = z.infer<typeof CertificateOutputSchema>;
+
+export const EcoBotInputSchema = z.object({
+    message: z.string(),
+    history: z.array(z.object({
+      role: z.enum(['user', 'model']),
+      content: z.string(),
+    })).optional(),
+});
+export type EcoBotInput = z.infer<typeof EcoBotInputSchema>;
+
+export const EcoBotOutputSchema = z.object({
+    response: z.string(),
+});
+export type EcoBotOutput = z.infer<typeof EcoBotOutputSchema>;
