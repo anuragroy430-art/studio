@@ -1,8 +1,7 @@
-
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2, Video } from 'lucide-react';
+import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2 } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
 
@@ -26,7 +25,6 @@ export default function LandingPage() {
             <Link href="/dashboard" className="text-primary font-medium hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary font-medium hover:underline">Community</Link>
             <Link href="/game" className="text-primary font-medium hover:underline">Waste Sorting Game</Link>
-            <Link href="/forest-game" className="text-primary font-medium hover:underline">Forest Generator</Link>
           </nav>
         </div>
       </header>
@@ -137,15 +135,15 @@ export default function LandingPage() {
                 <p>Have fun while learning about sustainability with our interactive waste sorting mini-game.</p>
               </CardContent>
             </Card>
-             <Card className="text-center shadow-lg col-span-1">
+            <Card className="text-center shadow-lg col-span-1 md:col-start-2">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
-                  <Video className="w-8 h-8 text-accent-foreground" />
+                  <Users className="w-8 h-8 text-accent-foreground" />
                 </div>
-                <CardTitle>Generate a Forest</CardTitle>
+                <CardTitle>Join the Community</CardTitle>
               </CardHeader>
               <CardContent>
-                <p>Watch a forest grow before your eyes with our AI-powered text-to-video generator.</p>
+                <p>See the collective impact of pledges from around the world on our community map.</p>
               </CardContent>
             </Card>
           </div>

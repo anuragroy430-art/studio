@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -65,7 +64,6 @@ export default function CommunityPage() {
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
-            <Link href="/forest-game" className="text-primary hover:underline">Forest Generator</Link>
           </nav>
         </div>
       </header>

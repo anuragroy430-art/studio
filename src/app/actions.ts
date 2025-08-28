@@ -5,8 +5,7 @@ import {
 } from '@/ai/flows/eco-pledge-generator';
 import { askEcoBot } from '@/ai/flows/eco-bot-flow';
 import { generateEcoChallenge } from '@/ai/flows/generate-challenge-flow';
-import { generateForestVideo } from '@/ai/flows/generate-forest-flow';
-import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput, GenerateForestVideoOutput } from '@/ai/schemas';
+import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput } from '@/ai/schemas';
 
 export async function handleGeneratePledge(
   data: EcoPledgeInput
@@ -41,16 +40,5 @@ export async function handleGenerateChallenge(
     } catch (error) {
         console.error('Error generating eco challenge:', error);
         throw new Error('Failed to generate your eco challenge. Please try again.');
-    }
-}
-
-
-export async function handleGenerateForestVideo(): Promise<GenerateForestVideoOutput> {
-    try {
-        const videoData = await generateForestVideo();
-        return videoData;
-    } catch (error) {
-        console.error('Error generating forest video:', error);
-        throw new Error('Failed to generate your forest video. Please try again later.');
     }
 }
