@@ -82,16 +82,37 @@ const ecoPledgeFlow = ai.defineFlow(
     outputSchema: EcoPledgeOutputSchema,
   },
   async input => {
-    const pledgeOutput = await ecoPledgePrompt(input);
-    const output = pledgeOutput.output;
+    console.log('Starting ecoPledgeFlow with input:', input.name);
+
+    // Step 1: Generate pledge text
+    const pledgeResult = await ecoPledgePrompt(input);
+    const output = pledgeResult.output;
 
     if (!output) {
+      console.error('Failed to generate pledge text from ecoPledgePrompt.');
       throw new Error('Failed to generate pledge output from the main prompt.');
     }
+    console.log('Successfully generated pledge text.');
 
-    const [certificateResult, ttsResult] = await Promise.all([
-      generateCertificate({ name: input.name, pledge: output.pledge }),
-      ai.generate({
+    // Step 2: Generate certificate
+    try {
+      console.log('Starting certificate generation...');
+      const certificateResult = await generateCertificate({ name: input.name, pledge: output.pledge });
+      if (certificateResult?.certificateUrl) {
+        output.certificateUrl = certificateResult.certificateUrl;
+        console.log('Successfully generated certificate.');
+      } else {
+        console.warn('Certificate generation did not return a URL.');
+      }
+    } catch (error) {
+      console.error('Error during certificate generation:', error);
+      // We can decide to not throw here to allow the flow to continue without a cert
+    }
+
+    // Step 3: Generate TTS audio
+    try {
+      console.log('Starting TTS generation...');
+      const ttsResult = await ai.generate({
         model: 'googleai/gemini-2.5-flash-preview-tts',
         config: {
           responseModalities: ['AUDIO'],
@@ -102,23 +123,24 @@ const ecoPledgeFlow = ai.defineFlow(
           },
         },
         prompt: output.pledge,
-      })
-    ]);
+      });
 
-    if (certificateResult?.certificateUrl) {
-      output.certificateUrl = certificateResult.certificateUrl;
+      if (ttsResult?.media?.url) {
+        const audioBuffer = Buffer.from(
+          ttsResult.media.url.substring(ttsResult.media.url.indexOf(',') + 1),
+          'base64'
+        );
+        output.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
+        console.log('Successfully generated TTS audio.');
+      } else {
+        console.warn('TTS generation did not return any media.');
+      }
+    } catch (error) {
+      console.error('Error during TTS generation:', error);
+      // We can decide to not throw here to allow the flow to continue without audio
     }
 
-    if (ttsResult?.media) {
-      const audioBuffer = Buffer.from(
-        ttsResult.media.url.substring(ttsResult.media.url.indexOf(',') + 1),
-        'base64'
-      );
-      output.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
-    } else {
-      console.log('No audio media returned from TTS.');
-    }
-
+    console.log('ecoPledgeFlow completed.');
     return output;
   }
 );
