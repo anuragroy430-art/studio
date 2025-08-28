@@ -4,47 +4,47 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Droplets, Leaf, BarChart } from 'lucide-react';
 import Link from 'next/link';
-import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
+import dynamic from 'next/dynamic';
+import 'leaflet/dist/leaflet.css';
+import { LatLngExpression } from 'leaflet';
+
+// Dynamically import the map to prevent SSR issues with Leaflet
+const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
 
 const WorldMap = ({ pins }: { pins: { lat: number; lng: number; city: string }[] }) => {
-  const position = { lat: 20, lng: 0 };
+  const position: LatLngExpression = [20, 0];
   
-  if (!process.env.NEXT_PUBLIC_MAPS_API_KEY) {
-    return (
-      <div className="relative w-full aspect-[2/1] bg-muted/30 rounded-lg overflow-hidden border flex flex-col items-center justify-center text-center p-4">
-        <h3 className="text-lg font-semibold text-destructive">Google Maps API Key Missing</h3>
-        <p className="text-sm text-muted-foreground mt-2">
-          To display the interactive map, please add your Google Maps API key to the <code className="px-1 py-0.5 bg-muted rounded-sm text-xs">.env</code> file as <code className="px-1 py-0.5 bg-muted rounded-sm text-xs">NEXT_PUBLIC_MAPS_API_KEY</code>.
-        </p>
-         <p className="text-xs text-muted-foreground mt-4">
-          Remember to restart the development server after adding the key.
-        </p>
-      </div>
-    );
-  }
+  // Since leaflet is client-side only, we need to handle icon loading carefully
+  useEffect(() => {
+    (async () => {
+      // @ts-ignore
+      delete L.Icon.Default.prototype._getIconUrl;
+      // @ts-ignore
+      L.Icon.Default.mergeOptions({
+        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      });
+    })();
+  }, []);
+
 
   return (
     <div className="relative w-full aspect-[2/1] bg-muted/30 rounded-lg overflow-hidden border">
-       <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY}>
-        <Map 
-            defaultCenter={position} 
-            defaultZoom={2} 
-            mapId="eco_pledger_map"
-            mapTypeControl={false}
-            streetViewControl={false}
-            fullscreenControl={false}
-        >
-          {pins.map((pin, i) => (
-             <AdvancedMarker key={i} position={pin} title={pin.city}>
-                <div className="w-4 h-4 rounded-full bg-primary/80 border-2 border-primary-foreground shadow-md"></div>
-            </AdvancedMarker>
-          ))}
-        </Map>
-       </APIProvider>
+       <MapContainer center={position} zoom={2} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {pins.map((pin, i) => (
+          <Marker key={i} position={[pin.lat, pin.lng]} />
+        ))}
+      </MapContainer>
     </div>
   );
 };
-
 
 const generateRandomPins = (count: number) => {
     const cities = [
@@ -71,7 +71,6 @@ const generateRandomPins = (count: number) => {
         };
     });
 }
-
 
 export default function CommunityPage() {
     const [pins, setPins] = useState<{lat: number; lng: number; city: string}[]>([]);
