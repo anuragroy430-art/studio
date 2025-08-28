@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview A flow to "greenify" an image based on user input.

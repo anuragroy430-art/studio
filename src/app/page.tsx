@@ -34,11 +34,11 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white pt-20">
         <Image
-          src="https://picsum.photos/seed/nature/1600/900"
+          src="https://picsum.photos/seed/forest/1600/900"
           alt="Lush green nature"
           fill
           className="object-cover"
-          data-ai-hint="lush nature"
+          data-ai-hint="lush forest"
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 p-4">
