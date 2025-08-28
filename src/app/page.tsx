@@ -10,7 +10,7 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-20 bg-card/80 backdrop-blur-sm shadow-sm">
-        <div className="container mx-auto px-4 flex justify-between items-center py-4">
+        <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center py-4">
           <Link href="/" className="inline-block">
             <div className="flex items-center gap-3">
               <Leaf className="w-8 h-8 text-primary" />
@@ -41,7 +41,7 @@ export default function LandingPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 p-4">
-          <div className="flex justify-center items-center gap-4 mb-4 flex-col">
+          <div className="flex justify-center items-center gap-4 flex-col">
             <div className="flex items-center gap-4">
               <Leaf className="w-16 h-16 text-primary" />
               <h1 className="text-5xl md:text-7xl font-bold font-headline text-white">
