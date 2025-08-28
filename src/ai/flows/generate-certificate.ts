@@ -19,7 +19,8 @@ const generateCertificateFlow = ai.defineFlow(
     outputSchema: CertificateOutputSchema,
   },
   async (input) => {
-    // Correctly construct the prompt as a string for the image model.
+    console.log('Starting certificate generation flow with input:', input);
+
     const promptText = `Generate a visually appealing eco-pledge certificate.
     
     The certificate should have a nature-inspired theme, with watercolor illustrations of leaves, trees, and flowers around the border.
@@ -37,17 +38,28 @@ const generateCertificateFlow = ai.defineFlow(
     
     The layout should be balanced and professional.`;
 
-    const { media } = await ai.generate({
-      model: 'googleai/imagen-4.0-fast-generate-001',
-      prompt: promptText, // Pass the simple string prompt.
-    });
+    console.log('Constructed image generation prompt.');
 
-    if (!media.url) {
-      throw new Error('Image generation failed to produce a result.');
+    try {
+      console.log('Calling ai.generate for image model...');
+      const { media } = await ai.generate({
+        model: 'googleai/imagen-4.0-fast-generate-001',
+        prompt: promptText,
+      });
+      console.log('Image generation call completed.');
+
+      if (!media?.url) {
+        console.error('Image generation failed to produce a result URL.');
+        throw new Error('Image generation failed to produce a result.');
+      }
+      
+      console.log('Successfully generated certificate image URL.');
+      return {
+        certificateUrl: media.url,
+      };
+    } catch (error) {
+      console.error('Error during image generation ai.generate call:', error);
+      throw error; // Re-throw the error to be caught by the parent flow
     }
-    
-    return {
-      certificateUrl: media.url,
-    };
   }
 );
