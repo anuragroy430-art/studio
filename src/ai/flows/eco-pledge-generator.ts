@@ -18,21 +18,34 @@ const ecoPledgePrompt = ai.definePrompt({
   name: 'ecoPledgePrompt',
   input: {schema: LifestyleQuestionsSchema},
   output: {schema: EcoPledgeOutputSchema},
-  prompt: `Based on the following lifestyle questions, generate a personalized eco-pledge with specific actions, measurable impact, and a motivational tone. The user's name is {{{name}}}.
+  prompt: `You are an AI assistant for EcoPledger. Your goal is to generate a personalized eco-pledge based on user's answers to lifestyle questions.
 
-Lifestyle Questions:
-Commute: {{{commute}}}
-Diet: {{{diet}}}
-Shopping: {{{shopping}}}
-Energy Use: {{{energyUse}}}
-Waste Management: {{{wasteManagement}}}
-Water Consumption: {{{waterConsumption}}}
-Travel Habits: {{{travelHabits}}}
-
-Eco-Pledge:
-- Specific Actions: [List specific actions the user can take]
-- Measurable Impact: [Quantify the environmental impact of these actions]
-- Motivational Tone: [Encourage the user with a positive and inspiring message]`, // Ensure the prompt is well-formatted and clear.
+  Generate a response in JSON format that conforms to the following Zod schema:
+  
+  'z.object({
+    pledge: z.string().describe("The personalized eco-pledge."),
+    impact: z.string().describe("The measurable environmental impact of the pledge."),
+    motivation: z.string().describe("A motivational statement to encourage the user."),
+    audio: z.string().optional().describe("Audio of the eco-pledge using TTS"),
+    certificateUrl: z.string().optional().describe("URL of the generated pledge certificate image."),
+  })'
+  
+  The user's name is: {{name}}
+  
+  Here are the user's answers:
+  - Commute: {{commute}}
+  - Diet: {{diet}}
+  - Shopping: {{shopping}}
+  - Energy Use: {{energyUse}}
+  - Waste Management: {{wasteManagement}}
+  - Water Consumption: {{waterConsumption}}
+  - Travel Habits: {{travelHabits}}
+  
+  Based on these answers, create a short, inspiring "pledge" sentence.
+  Then, create a sentence for the "impact" that quantifies the positive effect of their actions.
+  Finally, write a "motivation" sentence to encourage them.
+  
+  Return only the valid JSON object.`,
 });
 
 async function toWav(
@@ -70,7 +83,11 @@ const ecoPledgeFlow = ai.defineFlow(
   },
   async input => {
     const pledgeOutput = await ecoPledgePrompt(input);
-    const output = pledgeOutput.output!;
+    const output = pledgeOutput.output;
+
+    if (!output) {
+      throw new Error('Failed to generate pledge output.');
+    }
 
     const certificateOutput = await generateCertificate({ name: input.name, pledge: output.pledge });
     
