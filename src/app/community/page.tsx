@@ -64,6 +64,7 @@ export default function CommunityPage() {
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
+            <Link href="/game" className="text-primary hover:underline">Play a Game</Link>
           </nav>
         </div>
       </header>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useTransition, useEffect } from "react";
@@ -227,6 +228,12 @@ export default function EcoPledgerPage() {
               </h1>
             </div>
           </Link>
+          <nav className="flex gap-4">
+            <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
+            <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
+            <Link href="/community" className="text-primary hover:underline">Community</Link>
+            <Link href="/game" className="text-primary hover:underline">Play a Game</Link>
+          </nav>
         </div>
       </header>
 

@@ -1,7 +1,8 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, Award, Users, TreePine, Target, Gauge } from 'lucide-react';
+import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2 } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
 
@@ -24,6 +25,7 @@ export default function LandingPage() {
             <Link href="/challenges" className="text-primary font-medium hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary font-medium hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary font-medium hover:underline">Community</Link>
+            <Link href="/game" className="text-primary font-medium hover:underline">Play a Game</Link>
           </nav>
         </div>
       </header>
@@ -78,7 +80,7 @@ export default function LandingPage() {
           <h2 className="text-3xl md:text-4xl font-bold font-headline text-center mb-12">
             How It Works
           </h2>
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-5 gap-8">
             <Card className="text-center shadow-lg">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
@@ -121,6 +123,17 @@ export default function LandingPage() {
               </CardHeader>
               <CardContent>
                 <p>Use your personal dashboard to log your activities, track your impact, and earn badges for your commitment.</p>
+              </CardContent>
+            </Card>
+             <Card className="text-center shadow-lg">
+              <CardHeader>
+                <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
+                  <Gamepad2 className="w-8 h-8 text-accent-foreground" />
+                </div>
+                <CardTitle>Play a Game</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Have fun while learning about sustainability with our interactive waste sorting mini-game.</p>
               </CardContent>
             </Card>
           </div>

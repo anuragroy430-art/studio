@@ -79,6 +79,7 @@ export default function DashboardPage() {
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
+            <Link href="/game" className="text-primary hover:underline">Play a Game</Link>
           </nav>
         </div>
       </header>
@@ -166,4 +167,3 @@ export default function DashboardPage() {
     </div>
     );
 }
-
