@@ -89,31 +89,39 @@ const ecoPledgeFlow = ai.defineFlow(
       throw new Error('Failed to generate pledge output.');
     }
 
-    const certificateOutput = await generateCertificate({ name: input.name, pledge: output.pledge });
-    
-    // Text to speech
-    const { media } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash-preview-tts',
-      config: {
-        responseModalities: ['AUDIO'],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Algenib' },
+    // Run TTS and certificate generation in parallel.
+    const [certificateResult, ttsResult] = await Promise.all([
+      generateCertificate({ name: input.name, pledge: output.pledge }),
+      ai.generate({
+        model: 'googleai/gemini-2.5-flash-preview-tts',
+        config: {
+          responseModalities: ['AUDIO'],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: { voiceName: 'Algenib' },
+            },
           },
         },
-      },
-      prompt: output?.pledge ?? 'no pledge available',
-    });
-    if (!media) {
-      console.log('no media returned');
-    } else {
+        prompt: output.pledge,
+      })
+    ]);
+
+    // Process certificate result
+    if (certificateResult?.certificateUrl) {
+      output.certificateUrl = certificateResult.certificateUrl;
+    }
+
+    // Process TTS result
+    if (ttsResult?.media) {
       const audioBuffer = Buffer.from(
-        media.url.substring(media.url.indexOf(',') + 1),
+        ttsResult.media.url.substring(ttsResult.media.url.indexOf(',') + 1),
         'base64'
       );
-      output!.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
+      output.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
+    } else {
+      console.log('No audio media returned from TTS.');
     }
-    output.certificateUrl = certificateOutput.certificateUrl;
+
     return output;
   }
 );
