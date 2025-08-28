@@ -157,144 +157,158 @@ export default function EcoPledgerPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="py-8 text-center">
-        <Link href="/" className="inline-block">
-          <div className="flex justify-center items-center gap-4 mb-4">
-            <Leaf className="w-12 h-12 text-primary" />
-            <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary">
-              EcoPledger
-            </h1>
-          </div>
-        </Link>
-        <p className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto px-4">
-          Turn small lifestyle choices into powerful eco-pledges with AI.
-        </p>
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <header className="py-6 bg-card shadow-sm">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <Link href="/" className="inline-block">
+            <div className="flex items-center gap-3">
+              <Leaf className="w-8 h-8 text-primary" />
+              <h1 className="text-2xl font-bold font-headline text-primary">
+                EcoPledger
+              </h1>
+            </div>
+          </Link>
+        </div>
       </header>
 
-      <main className="flex-grow w-full max-w-2xl mx-auto px-4 pb-12">
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl font-headline">Create Your Eco-Pledge</CardTitle>
-            <CardDescription>
-              Answer a few questions about your lifestyle to generate a personalized pledge.
-            </CardDescription>
-          </CardHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <CardContent className="space-y-6">
-                {lifestyleQuestions.map((q) => (
-                  <FormField
-                    key={q.name}
-                    control={form.control}
-                    name={q.name}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2 text-base">
-                          <q.icon className="w-5 h-5" />
-                          {q.label}
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder={q.placeholder} />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {q.options.map((option) => (
-                              <SelectItem key={option} value={option}>
-                                {option}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                ))}
-              </CardContent>
-              <CardFooter>
-                <Button type="submit" disabled={isPending} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6">
-                  {isPending ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    "Generate My Pledge"
-                  )}
-                </Button>
-              </CardFooter>
-            </form>
-          </Form>
-        </Card>
+      <main className="flex-grow">
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <Card className="shadow-2xl border-2 border-primary/10">
+              <CardHeader className="text-center">
+                <CardTitle className="text-3xl font-headline">Create Your Eco-Pledge</CardTitle>
+                <CardDescription className="text-lg">
+                  Answer a few questions about your lifestyle to generate a personalized pledge.
+                </CardDescription>
+              </CardHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                  <CardContent className="space-y-6">
+                    {lifestyleQuestions.map((q) => (
+                      <FormField
+                        key={q.name}
+                        control={form.control}
+                        name={q.name}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="flex items-center gap-2 text-base font-semibold">
+                              <q.icon className="w-5 h-5 text-primary" />
+                              {q.label}
+                            </FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger className="text-base">
+                                  <SelectValue placeholder={q.placeholder} />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {q.options.map((option) => (
+                                  <SelectItem key={option} value={option} className="text-base">
+                                    {option}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ))}
+                  </CardContent>
+                  <CardFooter>
+                    <Button type="submit" disabled={isPending} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7">
+                      {isPending ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Generating Your Pledge...
+                        </>
+                      ) : (
+                        "Generate My Pledge"
+                      )}
+                    </Button>
+                  </CardFooter>
+                </form>
+              </Form>
+            </Card>
+          </div>
+        </section>
 
         <div
           ref={resultsRef}
           className={cn(
-            "mt-12 transition-all duration-700 ease-in-out",
-            showPledge ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5 pointer-events-none"
+            "transition-all duration-1000 ease-in-out",
+            showPledge ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
           )}
         >
           {pledge && (
-            <Card className="shadow-lg border-2 border-primary/20">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-headline text-primary">Your Personalized Eco-Pledge</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <blockquote className="text-center text-lg italic border-l-4 border-accent pl-4 py-2 bg-background">
-                  "{pledge.pledge}"
-                </blockquote>
+            <section className="py-16 md:py-24 bg-card">
+              <div className="container mx-auto px-4 max-w-2xl">
+                <Card className="shadow-lg border-2 border-primary/20 bg-background">
+                  <CardHeader className="text-center">
+                    <TreePine className="w-12 h-12 mx-auto text-primary mb-2" />
+                    <CardTitle className="text-3xl font-headline text-primary">Your Personalized Eco-Pledge</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <blockquote className="text-center text-xl italic border-l-4 border-accent pl-4 py-2 bg-accent/10">
+                      "{pledge.pledge}"
+                    </blockquote>
 
-                <Separator />
+                    <Separator className="my-6" />
 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-accent/20 rounded-full">
-                      <TreePine className="w-6 h-6 text-accent-foreground" />
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 rounded-full">
+                          <TreePine className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold font-headline text-lg text-primary">Your Impact</h3>
+                          <p className="text-foreground/80">{pledge.impact}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 rounded-full">
+                          <Sparkles className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold font-headline text-lg text-primary">Stay Motivated!</h3>
+                          <p className="text-foreground/80">{pledge.motivation}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold font-headline text-lg">Your Impact</h3>
-                      <p className="text-foreground/80">{pledge.impact}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-accent/20 rounded-full">
-                      <Sparkles className="w-6 h-6 text-accent-foreground" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold font-headline text-lg">Stay Motivated!</h3>
-                      <p className="text-foreground/80">{pledge.motivation}</p>
-                    </div>
-                  </div>
-                </div>
 
-                {pledge.audio && (
-                  <>
-                    <audio ref={audioRef} src={pledge.audio} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onEnded={() => setIsPlaying(false)} preload="auto" />
-                    <Button variant="outline" onClick={toggleAudio} className="w-full">
-                      {isPlaying ? <Pause className="mr-2" /> : <Volume2 className="mr-2" />}
-                      {isPlaying ? "Pause" : "Listen to Your Pledge"}
-                    </Button>
-                  </>
-                )}
-              </CardContent>
-              <CardFooter className="flex-col gap-4 pt-4">
-                <p className="text-sm font-semibold">Share your pledge!</p>
-                <div className="flex gap-4">
-                  <Button variant="outline" size="icon" onClick={shareOnTwitter} aria-label="Share on Twitter">
-                    <Twitter className="w-5 h-5" />
-                  </Button>
-                   <Button variant="outline" size="icon" onClick={shareOnLinkedIn} aria-label="Share on LinkedIn">
-                    <Linkedin className="w-5 h-5" />
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
+                    {pledge.audio && (
+                      <>
+                        <audio ref={audioRef} src={pledge.audio} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onEnded={() => setIsPlaying(false)} preload="auto" />
+                        <Button variant="outline" onClick={toggleAudio} className="w-full text-lg py-6">
+                          {isPlaying ? <Pause className="mr-2" /> : <Volume2 className="mr-2" />}
+                          {isPlaying ? "Pause" : "Listen to Your Pledge"}
+                        </Button>
+                      </>
+                    )}
+                  </CardContent>
+                  <CardFooter className="flex-col gap-4 pt-6">
+                    <p className="font-semibold text-primary">Share your pledge and inspire others!</p>
+                    <div className="flex gap-4">
+                      <Button variant="outline" size="icon" onClick={shareOnTwitter} aria-label="Share on Twitter">
+                        <Twitter className="w-5 h-5 text-primary" />
+                      </Button>
+                      <Button variant="outline" size="icon" onClick={shareOnLinkedIn} aria-label="Share on LinkedIn">
+                        <Linkedin className="w-5 h-5 text-primary" />
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </div>
+            </section>
           )}
         </div>
       </main>
+
+      <footer className="py-8 bg-card text-center text-foreground/60">
+        <div className="container mx-auto px-4">
+          <p>&copy; {new Date().getFullYear()} EcoPledger. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
