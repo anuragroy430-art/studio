@@ -89,36 +89,35 @@ const ecoPledgeFlow = ai.defineFlow(
       throw new Error('Failed to generate pledge output from the main prompt.');
     }
 
-    // Temporarily disable parallel calls to debug
-    // const [certificateResult, ttsResult] = await Promise.all([
-    //   generateCertificate({ name: input.name, pledge: output.pledge }),
-    //   ai.generate({
-    //     model: 'googleai/gemini-2.5-flash-preview-tts',
-    //     config: {
-    //       responseModalities: ['AUDIO'],
-    //       speechConfig: {
-    //         voiceConfig: {
-    //           prebuiltVoiceConfig: { voiceName: 'Algenib' },
-    //         },
-    //       },
-    //     },
-    //     prompt: output.pledge,
-    //   })
-    // ]);
+    const [certificateResult, ttsResult] = await Promise.all([
+      generateCertificate({ name: input.name, pledge: output.pledge }),
+      ai.generate({
+        model: 'googleai/gemini-2.5-flash-preview-tts',
+        config: {
+          responseModalities: ['AUDIO'],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: { voiceName: 'Algenib' },
+            },
+          },
+        },
+        prompt: output.pledge,
+      })
+    ]);
 
-    // if (certificateResult?.certificateUrl) {
-    //   output.certificateUrl = certificateResult.certificateUrl;
-    // }
+    if (certificateResult?.certificateUrl) {
+      output.certificateUrl = certificateResult.certificateUrl;
+    }
 
-    // if (ttsResult?.media) {
-    //   const audioBuffer = Buffer.from(
-    //     ttsResult.media.url.substring(ttsResult.media.url.indexOf(',') + 1),
-    //     'base64'
-    //   );
-    //   output.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
-    // } else {
-    //   console.log('No audio media returned from TTS.');
-    // }
+    if (ttsResult?.media) {
+      const audioBuffer = Buffer.from(
+        ttsResult.media.url.substring(ttsResult.media.url.indexOf(',') + 1),
+        'base64'
+      );
+      output.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
+    } else {
+      console.log('No audio media returned from TTS.');
+    }
 
     return output;
   }
