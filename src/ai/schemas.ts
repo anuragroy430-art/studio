@@ -82,3 +82,15 @@ export const EcoBotOutputSchema = z.object({
     response: z.string(),
 });
 export type EcoBotOutput = z.infer<typeof EcoBotOutputSchema>;
+
+export const EcoChallengeInputSchema = z.object({
+    pledge: z.string().describe("The user's eco-pledge."),
+});
+export type EcoChallengeInput = z.infer<typeof EcoChallengeInputSchema>;
+
+export const EcoChallengeOutputSchema = z.object({
+    title: z.string().describe("A short, catchy title for the challenge."),
+    description: z.string().describe("A one or two-sentence description of what the user should do."),
+    benefit: z.string().describe("A brief explanation of the positive environmental impact of this action."),
+});
+export type EcoChallengeOutput = z.infer<typeof EcoChallengeOutputSchema>;

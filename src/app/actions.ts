@@ -4,7 +4,8 @@ import {
   generateEcoPledge,
 } from '@/ai/flows/eco-pledge-generator';
 import { askEcoBot } from '@/ai/flows/eco-bot-flow';
-import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput } from '@/ai/schemas';
+import { generateEcoChallenge } from '@/ai/flows/generate-challenge-flow';
+import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput } from '@/ai/schemas';
 
 export async function handleGeneratePledge(
   data: EcoPledgeInput
@@ -27,5 +28,17 @@ export async function handleEcoBotQuery(
     } catch (error) {
         console.error('Error with Eco-Bot:', error);
         return { response: "Sorry, I'm having a little trouble thinking right now. Please try again in a moment." };
+    }
+}
+
+export async function handleGenerateChallenge(
+    data: EcoChallengeInput
+): Promise<EcoChallengeOutput> {
+    try {
+        const challengeData = await generateEcoChallenge(data);
+        return challengeData;
+    } catch (error) {
+        console.error('Error generating eco challenge:', error);
+        throw new Error('Failed to generate your eco challenge. Please try again.');
     }
 }

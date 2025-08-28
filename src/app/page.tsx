@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, Award, Users, TreePine } from 'lucide-react';
+import { Leaf, Award, Users, TreePine, Target } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
 
@@ -58,7 +58,7 @@ export default function LandingPage() {
           <h2 className="text-3xl md:text-4xl font-bold font-headline text-center mb-12">
             How It Works
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
             <Card className="text-center shadow-lg">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
@@ -79,6 +79,17 @@ export default function LandingPage() {
               </CardHeader>
               <CardContent>
                 <p>Our AI generates a unique, personalized pledge with measurable goals and motivational tips.</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center shadow-lg">
+              <CardHeader>
+                <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
+                  <Target className="w-8 h-8 text-accent-foreground" />
+                </div>
+                <CardTitle>Take a Challenge</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Receive daily or weekly challenges tailored to your pledge to help you build sustainable habits.</p>
               </CardContent>
             </Card>
             <Card className="text-center shadow-lg">
@@ -110,7 +121,7 @@ export default function LandingPage() {
               <Link href="/pledge">Take the Eco-Pledge Test</Link>
             </Button>
              <Button asChild size="lg" variant="secondary" className="text-lg py-7 px-10">
-              <Link href="/community">View Community Impact</Link>
+              <Link href="/challenges">Get a Daily Challenge</Link>
             </Button>
           </div>
         </div>
