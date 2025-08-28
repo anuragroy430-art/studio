@@ -227,7 +227,7 @@ export default function EcoPledgerPage() {
               </h1>
             </div>
           </Link>
-          <nav className="flex gap-4">
+          <nav className="hidden md:flex gap-4 items-center">
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>

@@ -19,7 +19,7 @@ export default function LandingPage() {
               </h1>
             </div>
           </Link>
-          <nav className="hidden md:flex gap-6 items-center">
+          <nav className="hidden lg:flex gap-6 items-center">
             <Link href="/pledge" className="text-primary font-medium hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary font-medium hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary font-medium hover:underline">Dashboard</Link>

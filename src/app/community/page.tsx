@@ -59,7 +59,7 @@ export default function CommunityPage() {
               </h1>
             </div>
           </Link>
-          <nav className="flex gap-4">
+          <nav className="hidden md:flex gap-4 items-center">
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
