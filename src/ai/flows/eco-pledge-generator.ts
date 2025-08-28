@@ -94,50 +94,61 @@ const ecoPledgeFlow = ai.defineFlow(
     }
     console.log('Successfully generated pledge text.');
 
-    // Step 2: Generate certificate
-    try {
-      console.log('Starting certificate generation...');
-      const certificateResult = await generateCertificate({ name: input.name, pledge: output.pledge, date: input.currentDate });
-      if (certificateResult?.certificateUrl) {
-        output.certificateUrl = certificateResult.certificateUrl;
-        console.log('Successfully generated certificate.');
-      } else {
-        console.warn('Certificate generation did not return a URL.');
-      }
-    } catch (error) {
-      console.error('Error during certificate generation:', error);
-      // We can decide to not throw here to allow the flow to continue without a cert
+    // Parallel execution for certificate and TTS
+    const [certificateResult, ttsResult] = await Promise.allSettled([
+      // Step 2: Generate certificate
+      (async () => {
+        try {
+          console.log('Starting certificate generation...');
+          const cert = await generateCertificate({ name: input.name, pledge: output.pledge, date: input.currentDate });
+          console.log('Successfully generated certificate.');
+          return cert;
+        } catch (error) {
+          console.error('Error during certificate generation:', error);
+          return null; // Return null on failure
+        }
+      })(),
+      // Step 3: Generate TTS audio
+      (async () => {
+        try {
+          console.log('Starting TTS generation...');
+          const tts = await ai.generate({
+            model: 'googleai/gemini-2.5-flash-preview-tts',
+            config: {
+              responseModalities: ['AUDIO'],
+              speechConfig: {
+                voiceConfig: {
+                  prebuiltVoiceConfig: { voiceName: 'Algenib' },
+                },
+              },
+            },
+            prompt: output.pledge,
+          });
+          console.log('Successfully generated TTS audio.');
+          return tts;
+        } catch (error) {
+          console.error('Error during TTS generation:', error);
+          return null; // Return null on failure
+        }
+      })()
+    ]);
+    
+    // Process certificate result
+    if (certificateResult.status === 'fulfilled' && certificateResult.value?.certificateUrl) {
+      output.certificateUrl = certificateResult.value.certificateUrl;
+    } else {
+      console.warn('Certificate generation did not return a URL or failed.');
     }
 
-    // Step 3: Generate TTS audio
-    try {
-      console.log('Starting TTS generation...');
-      const ttsResult = await ai.generate({
-        model: 'googleai/gemini-2.5-flash-preview-tts',
-        config: {
-          responseModalities: ['AUDIO'],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: 'Algenib' },
-            },
-          },
-        },
-        prompt: output.pledge,
-      });
-
-      if (ttsResult?.media?.url) {
-        const audioBuffer = Buffer.from(
-          ttsResult.media.url.substring(ttsResult.media.url.indexOf(',') + 1),
+    // Process TTS result
+    if (ttsResult.status === 'fulfilled' && ttsResult.value?.media?.url) {
+       const audioBuffer = Buffer.from(
+          ttsResult.value.media.url.substring(ttsResult.value.media.url.indexOf(',') + 1),
           'base64'
         );
         output.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
-        console.log('Successfully generated TTS audio.');
-      } else {
-        console.warn('TTS generation did not return any media.');
-      }
-    } catch (error) {
-      console.error('Error during TTS generation:', error);
-      // We can decide to not throw here to allow the flow to continue without audio
+    } else {
+        console.warn('TTS generation did not return any media or failed.');
     }
 
     console.log('ecoPledgeFlow completed.');
