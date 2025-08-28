@@ -366,6 +366,11 @@ export default function EcoPledgerPage() {
                                     fill
                                     className="object-contain"
                                 />
+                                <div className="absolute inset-0 flex items-center justify-center p-8">
+                                    <p className="text-center text-lg italic text-yellow-900/80" style={{fontFamily: "'Brush Script MT', cursive"}}>
+                                        {pledge.pledge}
+                                    </p>
+                                </div>
                                 </div>
                             ) : (
                                 <div className="relative aspect-[4/3] w-full rounded-lg bg-muted/50 flex items-center justify-center">

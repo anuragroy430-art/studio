@@ -34,10 +34,10 @@ const generateCertificateFlow = ai.defineFlow(
       const prompt = `
         This is a certificate of an eco-pledge.
         The user's name is "${input.name}".
-        The pledge they made is: "${input.pledge}".
         The date is: "${input.date}".
         
-        Using the provided certificate template, please fill in the user's name, their pledge, and the date in the designated blank spaces.
+        Using the provided certificate template, please fill in the user's name and the date in the designated blank spaces.
+        Do not write the pledge text on the certificate. Only the name and date.
         Use an elegant, clean, and legible script font.
         Ensure the text is centered and well-placed within the available space.
         Do not change any other part of the certificate image.
