@@ -21,6 +21,10 @@ export const CertificateOutputSchema = z.object({
 });
 export type CertificateOutput = z.infer<typeof CertificateOutputSchema>;
 
+export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
+  return generateCertificateFlow(input);
+}
+
 const certificatePrompt = ai.definePrompt({
     name: 'certificatePrompt',
     input: { schema: CertificateInputSchema },
@@ -42,7 +46,7 @@ const certificatePrompt = ai.definePrompt({
     The layout should be balanced and professional.`,
   });
 
-export const generateCertificate = ai.defineFlow(
+const generateCertificateFlow = ai.defineFlow(
   {
     name: 'generateCertificateFlow',
     inputSchema: CertificateInputSchema,
