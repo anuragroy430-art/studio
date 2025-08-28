@@ -7,6 +7,8 @@
 
 import { ai } from '@/ai/genkit';
 import { CertificateInput, CertificateOutput, CertificateInputSchema, CertificateOutputSchema } from '../schemas';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
   return generateCertificateFlow(input);
@@ -21,30 +23,36 @@ const generateCertificateFlow = ai.defineFlow(
   async (input) => {
     console.log('Starting certificate generation flow with input:', input);
 
-    const promptText = `Generate a visually appealing eco-pledge certificate.
+    const templatePath = path.join(process.cwd(), 'public', 'certificate-template.png');
+    console.log('Reading certificate template from:', templatePath);
     
-    The certificate should have a nature-inspired theme, with watercolor illustrations of leaves, trees, and flowers around the border.
-    The background should be a light parchment texture.
-    
-    Use elegant, clean fonts.
-    
-    The certificate must include the following text:
-    
-    Title: "Certificate of Eco-Pledge"
-    Recipient's Name: "${input.name}"
-    Pledge Statement: "${input.pledge}"
-    Signature Line: "____________________"
-    Date: "${input.date}"
-    
-    The layout should be balanced and professional.`;
-
-    console.log('Constructed image generation prompt.');
-
     try {
+      const imageBuffer = fs.readFileSync(templatePath);
+      const startingImage = imageBuffer.toString('base64');
+      console.log('Successfully read certificate template.');
+
+      const prompt = `
+        This is a certificate of an eco-pledge.
+        The user's name is "${input.name}".
+        The pledge they made is: "${input.pledge}".
+        The date is: "${input.date}".
+        
+        Using the provided certificate template, please fill in the user's name, their pledge, and the date in the designated blank spaces.
+        Use an elegant, clean, and legible script font.
+        Ensure the text is centered and well-placed within the available space.
+        Do not change any other part of the certificate image.
+      `;
+      
       console.log('Calling ai.generate for image model...');
       const { media } = await ai.generate({
-        model: 'googleai/imagen-4.0-fast-generate-001',
-        prompt: promptText,
+        model: 'googleai/gemini-2.0-flash-preview-image-generation',
+        prompt: [
+          { text: prompt },
+          { media: { url: `data:image/png;base64,${startingImage}` } },
+        ],
+        config: {
+            responseModalities: ['IMAGE', 'TEXT']
+        }
       });
       console.log('Image generation call completed.');
 
@@ -58,7 +66,7 @@ const generateCertificateFlow = ai.defineFlow(
         certificateUrl: media.url,
       };
     } catch (error) {
-      console.error('Error during image generation ai.generate call:', error);
+      console.error('Error during certificate generation:', error);
       throw error; // Re-throw the error to be caught by the parent flow
     }
   }
