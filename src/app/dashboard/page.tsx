@@ -79,7 +79,8 @@ export default function DashboardPage() {
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
-            <Link href="/game" className="text-primary hover:underline">Play a Game</Link>
+            <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
+            <Link href="/forest-game" className="text-primary hover:underline">Forest Generator</Link>
           </nav>
         </div>
       </header>

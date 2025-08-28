@@ -94,3 +94,9 @@ export const EcoChallengeOutputSchema = z.object({
     benefit: z.string().describe("A brief explanation of the positive environmental impact of this action."),
 });
 export type EcoChallengeOutput = z.infer<typeof EcoChallengeOutputSchema>;
+
+export const GenerateForestVideoOutputSchema = z.object({
+    videoUrl: z.string().describe('The URL of the generated video.'),
+    contentType: z.string().describe('The content type of the video.'),
+});
+export type GenerateForestVideoOutput = z.infer<typeof GenerateForestVideoOutputSchema>;

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2 } from 'lucide-react';
+import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2, Video } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
 
@@ -25,7 +25,8 @@ export default function LandingPage() {
             <Link href="/challenges" className="text-primary font-medium hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary font-medium hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary font-medium hover:underline">Community</Link>
-            <Link href="/game" className="text-primary font-medium hover:underline">Play a Game</Link>
+            <Link href="/game" className="text-primary font-medium hover:underline">Waste Sorting Game</Link>
+            <Link href="/forest-game" className="text-primary font-medium hover:underline">Forest Generator</Link>
           </nav>
         </div>
       </header>
@@ -80,8 +81,8 @@ export default function LandingPage() {
           <h2 className="text-3xl md:text-4xl font-bold font-headline text-center mb-12">
             How It Works
           </h2>
-          <div className="grid md:grid-cols-5 gap-8">
-            <Card className="text-center shadow-lg">
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="text-center shadow-lg col-span-1">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Leaf className="w-8 h-8 text-accent-foreground" />
@@ -92,7 +93,7 @@ export default function LandingPage() {
                 <p>Take a quick quiz about your daily habits in key areas like commute, diet, and energy use.</p>
               </CardContent>
             </Card>
-            <Card className="text-center shadow-lg">
+            <Card className="text-center shadow-lg col-span-1">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Award className="w-8 h-8 text-accent-foreground" />
@@ -103,7 +104,7 @@ export default function LandingPage() {
                 <p>Our AI generates a unique, personalized pledge with measurable goals and motivational tips.</p>
               </CardContent>
             </Card>
-             <Card className="text-center shadow-lg">
+             <Card className="text-center shadow-lg col-span-1">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Target className="w-8 h-8 text-accent-foreground" />
@@ -114,7 +115,7 @@ export default function LandingPage() {
                 <p>Receive daily or weekly challenges tailored to your pledge to help you build sustainable habits.</p>
               </CardContent>
             </Card>
-            <Card className="text-center shadow-lg">
+            <Card className="text-center shadow-lg col-span-1">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Gauge className="w-8 h-8 text-accent-foreground" />
@@ -125,7 +126,7 @@ export default function LandingPage() {
                 <p>Use your personal dashboard to log your activities, track your impact, and earn badges for your commitment.</p>
               </CardContent>
             </Card>
-             <Card className="text-center shadow-lg">
+             <Card className="text-center shadow-lg col-span-1">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Gamepad2 className="w-8 h-8 text-accent-foreground" />
@@ -134,6 +135,17 @@ export default function LandingPage() {
               </CardHeader>
               <CardContent>
                 <p>Have fun while learning about sustainability with our interactive waste sorting mini-game.</p>
+              </CardContent>
+            </Card>
+             <Card className="text-center shadow-lg col-span-1">
+              <CardHeader>
+                <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
+                  <Video className="w-8 h-8 text-accent-foreground" />
+                </div>
+                <CardTitle>Generate a Forest</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Watch a forest grow before your eyes with our AI-powered text-to-video generator.</p>
               </CardContent>
             </Card>
           </div>

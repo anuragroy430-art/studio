@@ -232,7 +232,8 @@ export default function EcoPledgerPage() {
             <Link href="/challenges" className="text-primary hover:underline">Challenges</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
-            <Link href="/game" className="text-primary hover:underline">Play a Game</Link>
+            <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
+            <Link href="/forest-game" className="text-primary hover:underline">Forest Generator</Link>
           </nav>
         </div>
       </header>
