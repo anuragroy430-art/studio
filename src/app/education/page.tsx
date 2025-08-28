@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { Leaf, Loader2, BookOpen, WandSparkles, Lightbulb } from "lucide-react";
+import { Leaf, Loader2, BookOpen, WandSparkles, Lightbulb, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { handleGenerateEducationContent } from "@/app/actions";
 import type { EducationContentOutput } from "@/ai/schemas";
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 const suggestedTopics = [
     "Reducing Plastic Waste",
@@ -145,6 +146,26 @@ export default function EducationPage() {
                     <CardContent className="prose prose-lg max-w-none text-foreground prose-headings:text-primary prose-strong:text-foreground">
                          {renderContent(article.content)}
                     </CardContent>
+
+                    {article.youtubeLinks && article.youtubeLinks.length > 0 && (
+                        <>
+                        <Separator className="my-6" />
+                        <CardFooter className="flex-col items-start gap-4">
+                            <h3 className="text-2xl font-bold font-headline text-primary">Further Watching</h3>
+                            <div className="space-y-3">
+                            {article.youtubeLinks.map((video, index) => (
+                                <a key={index} href={video.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+                                <Youtube className="w-8 h-8 text-red-600" />
+                                <div className="flex-1">
+                                    <p className="font-semibold group-hover:underline">{video.title}</p>
+                                    <p className="text-sm text-muted-foreground truncate">{video.url}</p>
+                                </div>
+                                </a>
+                            ))}
+                            </div>
+                        </CardFooter>
+                        </>
+                    )}
                 </Card>
             )}
           </div>

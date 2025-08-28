@@ -109,5 +109,9 @@ export type EducationContentInput = z.infer<typeof EducationContentInputSchema>;
 export const EducationContentOutputSchema = z.object({
     title: z.string().describe("The catchy and informative title of the article."),
     content: z.string().describe("The full content of the article, formatted with markdown (e.g., using # for titles, ## for headings, and * for list items)."),
+    youtubeLinks: z.array(z.object({
+        title: z.string().describe("The title of the YouTube video."),
+        url: z.string().url().describe("The URL of the YouTube video."),
+    })).optional().describe("A list of 2-3 relevant YouTube videos with their titles and valid URLs."),
 });
 export type EducationContentOutput = z.infer<typeof EducationContentOutputSchema>;
