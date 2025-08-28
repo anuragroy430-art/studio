@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Droplets, Leaf, BarChart } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Users, Droplets, Leaf, BarChart, Trophy, MessageSquare, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
-import type { LatLngExpression } from 'leaflet';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 const WorldMap = dynamic(() => import('@/components/WorldMap'), { 
   ssr: false,
@@ -39,6 +42,21 @@ const generateRandomPins = (count: number) => {
         };
     });
 }
+
+const leaderboardData = [
+    { rank: 1, name: "Greta T.", score: 9850, avatar: "/avatars/01.png" },
+    { rank: 2, name: "David A.", score: 9700, avatar: "/avatars/02.png" },
+    { rank: 3, name: "Jane G.", score: 9550, avatar: "/avatars/03.png" },
+    { rank: 4, name: "Leo D.", score: 9200, avatar: "/avatars/04.png" },
+    { rank: 5, name: "Mark R.", score: 8900, avatar: "/avatars/05.png" },
+];
+
+const communityFeedData = [
+    { name: "Alex P.", pledge: "I pledge to compost all my food scraps.", time: "5m ago", avatar: "/avatars/06.png" },
+    { name: "Maria S.", pledge: "I pledge to switch to a bamboo toothbrush.", time: "12m ago", avatar: "/avatars/07.png" },
+    { name: "Kenji T.", pledge: "I pledge to use reusable shopping bags every time.", time: "30m ago", avatar: "/avatars/08.png" },
+    { name: "Fatima A.", pledge: "I pledge to bike to work at least 3 times a week.", time: "1h ago", avatar: "/avatars/09.png" },
+];
 
 export default function CommunityPage() {
     const [pins, setPins] = useState<{lat: number; lng: number; city: string}[]>([]);
@@ -73,9 +91,9 @@ export default function CommunityPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Users className="w-12 h-12 mx-auto text-primary mb-4" />
-            <h2 className="text-4xl md:text-5xl font-bold font-headline mb-2">Community Impact</h2>
+            <h2 className="text-4xl md:text-5xl font-bold font-headline mb-2">Community Hub</h2>
             <p className="text-lg text-foreground/80 max-w-3xl mx-auto">
-              See the collective impact of our global community. Every pledge makes a difference.
+              See the collective impact, climb the leaderboard, and get inspired by our global community.
             </p>
           </div>
 
@@ -112,14 +130,86 @@ export default function CommunityPage() {
             </Card>
           </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Global Pledges</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <WorldMap pins={pins} />
-            </CardContent>
-          </Card>
+          <div className="grid lg:grid-cols-3 gap-8 mb-12">
+            <Card className="lg:col-span-2">
+                <CardHeader>
+                    <CardTitle>Global Pledges</CardTitle>
+                    <CardDescription>A world map of our eco-conscious community members.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <WorldMap pins={pins} />
+                </CardContent>
+            </Card>
+            <Card>
+                <CardHeader>
+                    <div className="flex items-center gap-2">
+                        <Trophy className="w-6 h-6 text-primary" />
+                        <CardTitle>Leaderboard</CardTitle>
+                    </div>
+                    <CardDescription>Top 5 members by impact score.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                            <TableHead className="w-[50px]">Rank</TableHead>
+                            <TableHead>User</TableHead>
+                            <TableHead className="text-right">Score</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {leaderboardData.map(user => (
+                                <TableRow key={user.rank}>
+                                    <TableCell className="font-bold text-lg">{user.rank}</TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center gap-3">
+                                            <Avatar className="h-9 w-9">
+                                                <AvatarImage src={`https://i.pravatar.cc/40?u=${user.name}`} alt={user.name} />
+                                                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                                            </Avatar>
+                                            <div>{user.name}</div>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell className="text-right font-mono">{user.score.toLocaleString()}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+          </div>
+          
+          <Separator className="my-12" />
+
+          <div>
+             <div className="text-center mb-12">
+                <TrendingUp className="w-12 h-12 mx-auto text-primary mb-4" />
+                <h2 className="text-4xl font-bold font-headline mb-2">Community Feed</h2>
+                <p className="text-lg text-foreground/80 max-w-3xl mx-auto">
+                Get inspired by the latest pledges from our community members.
+                </p>
+            </div>
+            <div className="space-y-6 max-w-2xl mx-auto">
+                {communityFeedData.map((item, index) => (
+                    <Card key={index} className="shadow-md">
+                        <CardContent className="p-4 flex items-start gap-4">
+                            <Avatar className="h-11 w-11 border-2 border-primary/50">
+                                <AvatarImage src={`https://i.pravatar.cc/48?u=${item.name}`} alt={item.name} />
+                                <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                                <div className="flex justify-between items-center">
+                                    <p className="font-bold">{item.name}</p>
+                                    <p className="text-xs text-muted-foreground">{item.time}</p>
+                                </div>
+                                <p className="text-foreground/90 mt-1">"{item.pledge}"</p>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+          </div>
+
         </div>
       </main>
 
