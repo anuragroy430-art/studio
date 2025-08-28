@@ -66,7 +66,7 @@ const generateForestFlow = ai.defineFlow(
       `${video.media.url}&key=${process.env.GEMINI_API_KEY}`
     );
 
-    if (!videoDownloadResponse.ok || !videoDownloadResponse.body) {
+    if (!videoDownloadResponse.ok) {
       throw new Error(`Failed to download video: ${videoDownloadResponse.statusText}`);
     }
 
