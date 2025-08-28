@@ -42,10 +42,8 @@ const generateCertificateFlow = ai.defineFlow(
   async (input) => {
     const { media } = await ai.generate({
       model: 'googleai/imagen-4.0-fast-generate-001',
-      prompt: await certificatePrompt.renderText({ input }),
-      config: {
-        // You can add image generation specific config here
-      },
+      prompt: certificatePrompt,
+      input: input,
     });
 
     if (!media.url) {
