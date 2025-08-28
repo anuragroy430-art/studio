@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -8,44 +9,11 @@ import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
 import type { LatLngExpression } from 'leaflet';
 
-// Dynamically import the map to prevent SSR issues with Leaflet
-const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
+const WorldMap = dynamic(() => import('@/components/WorldMap'), { 
+  ssr: false,
+  loading: () => <div className="relative w-full aspect-[2/1] bg-muted/30 rounded-lg border flex items-center justify-center"><p>Loading Map...</p></div>
+});
 
-const WorldMap = ({ pins }: { pins: { lat: number; lng: number; city: string }[] }) => {
-  const position: LatLngExpression = [20, 0];
-  
-  // Since leaflet is client-side only, we need to handle icon loading carefully
-  useEffect(() => {
-    (async () => {
-      const L = (await import('leaflet'));
-      // @ts-ignore
-      delete L.Icon.Default.prototype._getIconUrl;
-      // @ts-ignore
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-      });
-    })();
-  }, []);
-
-
-  return (
-    <div className="relative w-full aspect-[2/1] bg-muted/30 rounded-lg overflow-hidden border">
-       <MapContainer center={position} zoom={2} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {pins.map((pin, i) => (
-          <Marker key={i} position={[pin.lat, pin.lng]} />
-        ))}
-      </MapContainer>
-    </div>
-  );
-};
 
 const generateRandomPins = (count: number) => {
     const cities = [
@@ -158,3 +126,4 @@ export default function CommunityPage() {
     </div>
   );
 }
+
