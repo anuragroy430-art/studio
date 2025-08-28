@@ -3,23 +3,21 @@
  * @fileOverview Generates a personalized eco-pledge certificate image.
  * 
  * - generateCertificate - A function that creates a certificate image.
- * - CertificateInput - The input type for the generateCertificate function.
- * - CertificateOutput - The return type for the generateCertificate function.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const CertificateInputSchema = z.object({
+const CertificateInputSchema = z.object({
   name: z.string().describe("The user's name for the certificate."),
   pledge: z.string().describe('The personalized eco-pledge text.'),
 });
-export type CertificateInput = z.infer<typeof CertificateInputSchema>;
+type CertificateInput = z.infer<typeof CertificateInputSchema>;
 
-export const CertificateOutputSchema = z.object({
+const CertificateOutputSchema = z.object({
   certificateUrl: z.string().describe('The data URI of the generated certificate image.'),
 });
-export type CertificateOutput = z.infer<typeof CertificateOutputSchema>;
+type CertificateOutput = z.infer<typeof CertificateOutputSchema>;
 
 export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
   return generateCertificateFlow(input);

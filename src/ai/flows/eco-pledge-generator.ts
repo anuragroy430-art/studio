@@ -10,9 +10,10 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import wav from 'wav';
-import { generateCertificate, CertificateInputSchema } from './generate-certificate';
+import { generateCertificate } from './generate-certificate';
 
-const LifestyleQuestionsSchema = z.object({
+
+export const LifestyleQuestionsSchema = z.object({
   name: z.string().describe("The user's name."),
   commute: z
     .string()
@@ -69,7 +70,7 @@ export async function generateEcoPledge(input: EcoPledgeInput): Promise<EcoPledg
 
 const ecoPledgePrompt = ai.definePrompt({
   name: 'ecoPledgePrompt',
-  input: {schema: CertificateInputSchema},
+  input: {schema: LifestyleQuestionsSchema},
   output: {schema: EcoPledgeOutputSchema},
   prompt: `Based on the following lifestyle questions, generate a personalized eco-pledge with specific actions, measurable impact, and a motivational tone. The user's name is {{{name}}}.
 
@@ -95,13 +96,11 @@ const ecoPledgeFlow = ai.defineFlow(
     outputSchema: EcoPledgeOutputSchema,
   },
   async input => {
-    const [{output: pledgeOutput}, {output: certificateOutput}] = await Promise.all([
-        ecoPledgePrompt(input),
-        generateCertificate(input)
-    ]);
-    
-    const output = pledgeOutput!;
+    const pledgeOutput = await ecoPledgePrompt(input);
+    const output = pledgeOutput.output!;
 
+    const certificateOutput = await generateCertificate({ name: input.name, pledge: output.pledge });
+    
     // Text to speech
     const { media } = await ai.generate({
       model: 'googleai/gemini-2.5-flash-preview-tts',
@@ -124,7 +123,7 @@ const ecoPledgeFlow = ai.defineFlow(
       );
       output!.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
     }
-    output.certificateUrl = certificateOutput!.certificateUrl;
+    output.certificateUrl = certificateOutput.certificateUrl;
     return output;
   }
 );
