@@ -130,7 +130,7 @@ export default function GreenifyPage() {
                         )}
                         
                         <div className="space-y-2">
-                            <label htmlFor="prompt-input" className="font-semibold text-lg">2. Tell Us How to Greenify It</p>
+                            <label htmlFor="prompt-input" className="font-semibold text-lg">2. Tell Us How to Greenify It</label>
                             <Textarea
                                 id="prompt-input"
                                 placeholder="e.g., 'Make my backyard more wildlife-friendly' or 'Replace the plastic bottles with reusable ones.'"
