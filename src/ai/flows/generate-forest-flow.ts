@@ -59,7 +59,8 @@ const generateForestFlow = ai.defineFlow(
 
     console.log('Successfully generated forest video.');
     return {
-        videoUrl: video.media.url,
+        // The URL is already a data URI containing the video data
+        videoUrl: video.media.url, 
         contentType: video.media.contentType || 'video/mp4'
     };
   }
