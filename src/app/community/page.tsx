@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Users, Droplets, Leaf, BarChart, Trophy, MessageSquare, TrendingUp } from 'lucide-react';
+import { Users, Droplets, Leaf, BarChart, Trophy, MessageSquare, TrendingUp, Send } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
@@ -10,6 +10,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 const WorldMap = dynamic(() => import('@/components/WorldMap'), { 
   ssr: false,
@@ -51,7 +54,7 @@ const leaderboardData = [
     { rank: 5, name: "Mark R.", score: 8900, avatar: "/avatars/05.png" },
 ];
 
-const communityFeedData = [
+const initialCommunityFeedData = [
     { name: "Alex P.", pledge: "I pledge to compost all my food scraps.", time: "5m ago", avatar: "/avatars/06.png" },
     { name: "Maria S.", pledge: "I pledge to switch to a bamboo toothbrush.", time: "12m ago", avatar: "/avatars/07.png" },
     { name: "Kenji T.", pledge: "I pledge to use reusable shopping bags every time.", time: "30m ago", avatar: "/avatars/08.png" },
@@ -60,10 +63,38 @@ const communityFeedData = [
 
 export default function CommunityPage() {
     const [pins, setPins] = useState<{lat: number; lng: number; city: string}[]>([]);
+    const [communityFeed, setCommunityFeed] = useState(initialCommunityFeedData);
+    const [newPost, setNewPost] = useState("");
+    const { toast } = useToast();
 
     useEffect(() => {
         setPins(generateRandomPins(50));
     }, []);
+
+    const handlePostSubmit = () => {
+        if (newPost.trim().length < 5) {
+            toast({
+                variant: "destructive",
+                title: "Message is too short",
+                description: "Please write a more meaningful message to share.",
+            });
+            return;
+        }
+
+        const newFeedItem = {
+            name: "Eco Pledger", // Placeholder name
+            pledge: newPost,
+            time: "Just now",
+            avatar: `https://i.pravatar.cc/48?u=eco-pledger`
+        };
+
+        setCommunityFeed([newFeedItem, ...communityFeed]);
+        setNewPost("");
+        toast({
+            title: "Posted!",
+            description: "Your message has been added to the community feed.",
+        });
+    };
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -186,27 +217,47 @@ export default function CommunityPage() {
                 <TrendingUp className="w-12 h-12 mx-auto text-primary mb-4" />
                 <h2 className="text-4xl font-bold font-headline mb-2">Community Feed</h2>
                 <p className="text-lg text-foreground/80 max-w-3xl mx-auto">
-                Get inspired by the latest pledges from our community members.
+                Join the conversation and share your own eco-actions!
                 </p>
             </div>
-            <div className="space-y-6 max-w-2xl mx-auto">
-                {communityFeedData.map((item, index) => (
-                    <Card key={index} className="shadow-md">
-                        <CardContent className="p-4 flex items-start gap-4">
-                            <Avatar className="h-11 w-11 border-2 border-primary/50">
-                                <AvatarImage src={`https://i.pravatar.cc/48?u=${item.name}`} alt={item.name} />
-                                <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <div className="flex-1">
-                                <div className="flex justify-between items-center">
-                                    <p className="font-bold">{item.name}</p>
-                                    <p className="text-xs text-muted-foreground">{item.time}</p>
+            <div className="max-w-2xl mx-auto space-y-8">
+                <Card className="shadow-md">
+                    <CardHeader>
+                        <CardTitle className="text-lg">Share Your Pledge</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2">
+                        <Textarea 
+                            placeholder="What are you doing to help the planet today?"
+                            value={newPost}
+                            onChange={(e) => setNewPost(e.target.value)}
+                            className="min-h-[80px]"
+                        />
+                         <Button onClick={handlePostSubmit} disabled={!newPost.trim()} className="w-full">
+                            <Send className="mr-2 h-4 w-4" />
+                            Post to Feed
+                        </Button>
+                    </CardContent>
+                </Card>
+
+                <div className="space-y-6">
+                    {communityFeed.map((item, index) => (
+                        <Card key={index} className="shadow-md">
+                            <CardContent className="p-4 flex items-start gap-4">
+                                <Avatar className="h-11 w-11 border-2 border-primary/50">
+                                    <AvatarImage src={`https://i.pravatar.cc/48?u=${item.name}`} alt={item.name} />
+                                    <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <div className="flex-1">
+                                    <div className="flex justify-between items-center">
+                                        <p className="font-bold">{item.name}</p>
+                                        <p className="text-xs text-muted-foreground">{item.time}</p>
+                                    </div>
+                                    <p className="text-foreground/90 mt-1">"{item.pledge}"</p>
                                 </div>
-                                <p className="text-foreground/90 mt-1">"{item.pledge}"</p>
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
             </div>
           </div>
 
