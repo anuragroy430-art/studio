@@ -58,10 +58,26 @@ const generateForestFlow = ai.defineFlow(
     }
 
     console.log('Successfully generated forest video.');
+    
+    // The URL from Veo is temporary and needs an API key.
+    // Fetch it on the server and convert to a data URI.
+    const fetch = (await import('node-fetch')).default;
+    const videoDownloadResponse = await fetch(
+      `${video.media.url}&key=${process.env.GEMINI_API_KEY}`
+    );
+
+    if (!videoDownloadResponse.ok || !videoDownloadResponse.body) {
+      throw new Error(`Failed to download video: ${videoDownloadResponse.statusText}`);
+    }
+
+    const videoBuffer = await videoDownloadResponse.arrayBuffer();
+    const videoBase64 = Buffer.from(videoBuffer).toString('base64');
+    const contentType = video.media.contentType || 'video/mp4';
+    const dataUri = `data:${contentType};base64,${videoBase64}`;
+
     return {
-        // The URL is already a data URI containing the video data
-        videoUrl: video.media.url, 
-        contentType: video.media.contentType || 'video/mp4'
+        videoUrl: dataUri, 
+        contentType: contentType,
     };
   }
 );

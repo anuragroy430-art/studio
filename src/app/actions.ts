@@ -47,8 +47,6 @@ export async function handleGenerateChallenge(
 
 export async function handleGenerateForestVideo(): Promise<GenerateForestVideoOutput> {
     try {
-        // The AI flow now directly returns a data URI with the video content.
-        // No need to fetch or re-process it here.
         const videoData = await generateForestVideo();
         return videoData;
     } catch (error) {
