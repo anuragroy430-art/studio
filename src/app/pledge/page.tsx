@@ -53,7 +53,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { handleGeneratePledge } from "@/app/actions";
-import type { EcoPledgeOutput } from "@/ai/flows/eco-pledge-generator";
+import type { EcoPledgeOutput } from "@/ai/schemas";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";

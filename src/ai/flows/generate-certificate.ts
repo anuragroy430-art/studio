@@ -6,18 +6,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-
-const CertificateInputSchema = z.object({
-  name: z.string().describe("The user's name for the certificate."),
-  pledge: z.string().describe('The personalized eco-pledge text.'),
-});
-type CertificateInput = z.infer<typeof CertificateInputSchema>;
-
-const CertificateOutputSchema = z.object({
-  certificateUrl: z.string().describe('The data URI of the generated certificate image.'),
-});
-type CertificateOutput = z.infer<typeof CertificateOutputSchema>;
+import { CertificateInput, CertificateOutput, CertificateInputSchema, CertificateOutputSchema } from '../schemas';
 
 export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
   return generateCertificateFlow(input);

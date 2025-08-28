@@ -2,9 +2,8 @@
 
 import {
   generateEcoPledge,
-  type EcoPledgeInput,
-  type EcoPledgeOutput,
 } from '@/ai/flows/eco-pledge-generator';
+import type { EcoPledgeInput, EcoPledgeOutput } from '@/ai/schemas';
 
 export async function handleGeneratePledge(
   data: EcoPledgeInput
