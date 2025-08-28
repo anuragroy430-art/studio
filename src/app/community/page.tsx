@@ -4,47 +4,77 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Droplets, Leaf, BarChart } from 'lucide-react';
 import Link from 'next/link';
+import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 
-// A simple world map SVG component. In a real app, you might use a library like D3 or Mapbox.
-const WorldMap = ({ pins }: { pins: { x: number; y: number; city: string }[] }) => {
+const WorldMap = ({ pins }: { pins: { lat: number; lng: number; city: string }[] }) => {
+  const position = { lat: 20, lng: 0 };
+  
+  if (!process.env.NEXT_PUBLIC_MAPS_API_KEY) {
+    return (
+      <div className="relative w-full aspect-[2/1] bg-muted/30 rounded-lg overflow-hidden border flex flex-col items-center justify-center text-center p-4">
+        <h3 className="text-lg font-semibold text-destructive">Google Maps API Key Missing</h3>
+        <p className="text-sm text-muted-foreground mt-2">
+          To display the interactive map, please add your Google Maps API key to the <code className="px-1 py-0.5 bg-muted rounded-sm text-xs">.env</code> file as <code className="px-1 py-0.5 bg-muted rounded-sm text-xs">NEXT_PUBLIC_MAPS_API_KEY</code>.
+        </p>
+         <p className="text-xs text-muted-foreground mt-4">
+          Remember to restart the development server after adding the key.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="relative w-full aspect-[2/1] bg-muted/30 rounded-lg overflow-hidden border">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1000 500"
-        className="w-full h-full"
-        fill="hsl(var(--muted))"
-        stroke="hsl(var(--border))"
-        strokeWidth="0.5"
-      >
-        <path d="M500.1 45.4c-80-3.7-153.3 23-207.1 76.5-49 48.7-77.9 113.8-80.4 182.2-2.5 68.3 21.3 134.3 65.8 184.4 46.1 51.9 109.8 83.2 178.6 86.4 75.6 3.5 147.2-23.7 200.2-75.1 55.4-53.5 86.8-125.8 86.8-202.8.1-70.1-26.6-136.2-74.8-185.3-51.4-52.4-120.3-81.1-192.4-81.1-25.2 0-50.1 3.2-74.3 9.4-2.8.7-5.5 1.5-8.2 2.3l-.2-.1z" />
-        <path d="M296.8 91.3c-2.3 1.1-4.6 2.3-6.8 3.5-32.9 18.5-60.3 44.8-79.7 76.9-18.4 30.6-28.2 65.6-28.2 101.4s8.3 68.2 24.3 98.2c16.6 31 41.9 57.3 73.1 75.9 29.8 17.8 63.4 27.5 98.4 28.1h.4c35 .6 69.8-8.9 99.2-26.6 30-18.1 54.3-43.7 70.7-74.9 16.9-32 25.9-68.4 25.9-106.1s-11.2-73.4-31.8-105.7c-17-26.7-40.4-49.3-68.2-66.2-28.3-17.2-60-27.4-93.2-29.1-11.3-.6-22.6-.5-33.8.2z" />
-        <path d="M86.1 220.6c-2.3-11.8-3.4-23.8-3.4-35.9 0-20.9 4.3-41.2 12.7-60.2 7.9-18 19.3-34.6 33.7-49.2 14.5-14.7 31.8-27.1 40.2-30.8l-12.2-23.5-3.2 3.6c-20.9 23.5-35.9 52.8-43.5 85-8.3 34.6-8.3 70.8-.2 106.3 3.9 17 9.8 33.5 17.5 49.3 9.5 19.5 22.1 37.4 37.4 53.1 12.9 13.4 27.8 24.9 44.2 34.1 18.2 10.2 37.9 17.8 58.4 22.5 22.1 5.1 44.8 7.2 67.5 6.2 22.7-1 45-5.1 66.2-12.2s41.1-17.1 59.2-29.6c18.5-12.8 35-28.1 49-45.5 14-17.4 25.2-37 33.2-58.1 8.3-21.7 13.1-44.8 14.2-68.6.8-16.1.5-32.3-.9-48.4-1.4-16.1-4.2-32-8.2-47.5-4-15.5-9.2-30.4-15.5-44.6-6.3-14.2-13.6-27.5-21.9-39.9-8.2-12.2-17.4-23.4-27.3-33.3-9.9-10-20.6-18.6-31.9-25.9-11.2-7.2-23.1-13.1-35.4-17.6-12.3-4.5-25-7.7-37.9-9.4-12.9-1.7-26-2-39-1-12.8.9-25.5 3.2-37.8 6.7-12.2 3.5-24 8.1-35.3 13.6-11.2 5.5-21.9 11.9-31.9 19-10.1 7.2-19.4 15.2-28.1 23.9-8.6 8.7-16.4 18.1-23.4 28.1-7 10-13.2 20.6-18.4 31.7-5.2 11.1-9.5 22.7-12.7 34.6-3.2 11.9-5.4 24.1-6.5 36.4l.1.1z" />
-        {pins.map((pin, i) => (
-          <g key={i} transform={`translate(${pin.x}, ${pin.y})`} className="cursor-pointer group">
-            <title>{pin.city}</title>
-            <circle r="8" fill="hsla(var(--primary) / 0.5)" className="transition-all group-hover:r-12" />
-            <circle r="4" fill="hsl(var(--primary))" stroke="hsl(var(--primary-foreground))" strokeWidth="1.5" />
-          </g>
-        ))}
-      </svg>
+       <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY}>
+        <Map 
+            defaultCenter={position} 
+            defaultZoom={2} 
+            mapId="eco_pledger_map"
+            mapTypeControl={false}
+            streetViewControl={false}
+            fullscreenControl={false}
+        >
+          {pins.map((pin, i) => (
+             <AdvancedMarker key={i} position={pin} title={pin.city}>
+                <div className="w-4 h-4 rounded-full bg-primary/80 border-2 border-primary-foreground shadow-md"></div>
+            </AdvancedMarker>
+          ))}
+        </Map>
+       </APIProvider>
     </div>
   );
 };
 
 
 const generateRandomPins = (count: number) => {
-    const cities = ["New York", "London", "Tokyo", "Sydney", "Cairo", "Rio de Janeiro", "Moscow", "Beijing"];
-    return Array.from({ length: count }, () => ({
-        x: Math.random() * 950 + 25,
-        y: Math.random() * 450 + 25,
-        city: cities[Math.floor(Math.random() * cities.length)]
-    }));
+    const cities = [
+        { lat: 40.7128, lng: -74.0060, city: "New York" },
+        { lat: 51.5074, lng: -0.1278, city: "London" },
+        { lat: 35.6895, lng: 139.6917, city: "Tokyo" },
+        { lat: -33.8688, lng: 151.2093, city: "Sydney" },
+        { lat: 30.0444, lng: 31.2357, city: "Cairo" },
+        { lat: -22.9068, lng: -43.1729, city: "Rio de Janeiro" },
+        { lat: 55.7558, lng: 37.6173, city: "Moscow" },
+        { lat: 39.9042, lng: 116.4074, city: "Beijing" },
+        { lat: 19.4326, lng: -99.1332, city: "Mexico City" },
+        { lat: -34.6037, lng: -58.3816, city: "Buenos Aires" },
+        { lat: 6.5244, lng: 3.3792, city: "Lagos" },
+        { lat: 1.3521, lng: 103.8198, city: "Singapore" },
+    ];
+    
+    return Array.from({ length: count }, () => {
+        const city = cities[Math.floor(Math.random() * cities.length)];
+        return {
+            lat: city.lat + (Math.random() - 0.5) * 10,
+            lng: city.lng + (Math.random() - 0.5) * 20,
+            city: city.city
+        };
+    });
 }
 
 
 export default function CommunityPage() {
-    const [pins, setPins] = useState<{x: number; y: number; city: string}[]>([]);
+    const [pins, setPins] = useState<{lat: number; lng: number; city: string}[]>([]);
 
     useEffect(() => {
         setPins(generateRandomPins(50));
