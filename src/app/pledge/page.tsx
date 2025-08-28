@@ -17,6 +17,9 @@ import {
   Linkedin,
   Volume2,
   Pause,
+  Trash2,
+  Droplets,
+  Plane,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -55,6 +58,9 @@ const formSchema = z.object({
   diet: z.string({ required_error: "Please select your diet." }).min(1, "Please select your diet."),
   shopping: z.string({ required_error: "Please select your shopping habits." }).min(1, "Please select your shopping habits."),
   energyUse: z.string({ required_error: "Please select your energy use." }).min(1, "Please select your energy use."),
+  wasteManagement: z.string({ required_error: "Please select your waste management habits." }).min(1, "Please select your waste management habits."),
+  waterConsumption: z.string({ required_error: "Please select your water consumption habits." }).min(1, "Please select your water consumption habits."),
+  travelHabits: z.string({ required_error: "Please select your travel habits." }).min(1, "Please select your travel habits."),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -88,6 +94,27 @@ const lifestyleQuestions = [
     options: ["High", "Average", "Low"],
     placeholder: "Select your energy use",
   },
+  {
+    name: "wasteManagement",
+    label: "How do you manage your household waste?",
+    icon: Trash2,
+    options: ["General Waste Only", "Recycle Sometimes", "Recycle Regularly", "Compost and Recycle"],
+    placeholder: "Select your waste habits",
+  },
+  {
+    name: "waterConsumption",
+    label: "How conscious are you of your water usage?",
+    icon: Droplets,
+    options: ["Not Very", "Somewhat", "Very Conscious"],
+    placeholder: "Select your water usage",
+  },
+  {
+    name: "travelHabits",
+    label: "How often do you fly per year?",
+    icon: Plane,
+    options: ["Never", "1-2 times", "3-5 times", "More than 5 times"],
+    placeholder: "Select your travel frequency",
+  },
 ] as const;
 
 
@@ -107,6 +134,9 @@ export default function EcoPledgerPage() {
       diet: "",
       shopping: "",
       energyUse: "",
+      wasteManagement: "",
+      waterConsumption: "",
+      travelHabits: "",
     },
   });
 

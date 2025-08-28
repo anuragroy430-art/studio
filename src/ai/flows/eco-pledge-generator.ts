@@ -33,6 +33,21 @@ const LifestyleQuestionsSchema = z.object({
     .describe(
       'How would you describe your energy use at home? Options: high, average, low'
     ),
+  wasteManagement: z
+    .string()
+    .describe(
+      'How do you manage your household waste? Options: general waste only, recycle sometimes, recycle regularly, compost and recycle'
+    ),
+  waterConsumption: z
+    .string()
+    .describe(
+      'How conscious are you of your water usage? Options: not very, somewhat, very conscious'
+    ),
+  travelHabits: z
+    .string()
+    .describe(
+      'How often do you fly per year? Options: never, 1-2 times, 3-5 times, more than 5 times'
+    ),
 });
 
 export type EcoPledgeInput = z.infer<typeof LifestyleQuestionsSchema>;
@@ -61,6 +76,9 @@ Commute: {{{commute}}}
 Diet: {{{diet}}}
 Shopping: {{{shopping}}}
 Energy Use: {{{energyUse}}}
+Waste Management: {{{wasteManagement}}}
+Water Consumption: {{{waterConsumption}}}
+Travel Habits: {{{travelHabits}}}
 
 Eco-Pledge:
 - Specific Actions: [List specific actions the user can take]
@@ -129,4 +147,3 @@ async function toWav(
     writer.end();
   });
 }
-
