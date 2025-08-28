@@ -7,3 +7,4 @@ import '@/ai/flows/generate-certificate.ts';
 import '@/ai/flows/eco-bot-flow.ts';
 import '@/ai/flows/generate-challenge-flow.ts';
 import '@/ai/flows/generate-education-content-flow.ts';
+import '@/ai/flows/greenify-image-flow.ts';

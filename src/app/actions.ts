@@ -6,7 +6,8 @@ import {
 import { askEcoBot } from '@/ai/flows/eco-bot-flow';
 import { generateEcoChallenge } from '@/ai/flows/generate-challenge-flow';
 import { generateEducationalContent } from '@/ai/flows/generate-education-content-flow';
-import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput, EducationContentInput, EducationContentOutput } from '@/ai/schemas';
+import { greenifyImage } from '@/ai/flows/greenify-image-flow';
+import type { EcoPledgeInput, EcoPledgeOutput, EcoBotInput, EcoBotOutput, EcoChallengeInput, EcoChallengeOutput, EducationContentInput, EducationContentOutput, GreenifyImageInput, GreenifyImageOutput } from '@/ai/schemas';
 
 export async function handleGeneratePledge(
   data: EcoPledgeInput
@@ -53,5 +54,17 @@ export async function handleGenerateEducationContent(
     } catch (error) {
         console.error('Error generating educational content:', error);
         throw new Error('Failed to generate your educational content. Please try again.');
+    }
+}
+
+export async function handleGreenifyImage(
+    data: GreenifyImageInput
+): Promise<GreenifyImageOutput> {
+    try {
+        const imageData = await greenifyImage(data);
+        return imageData;
+    } catch (error) {
+        console.error('Error greenifying image:', error);
+        throw new Error('Failed to greenify your image. Please try again.');
     }
 }

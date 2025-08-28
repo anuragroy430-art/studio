@@ -80,6 +80,7 @@ export default function DashboardPage() {
             <Link href="/community" className="text-primary hover:underline">Community</Link>
             <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
             <Link href="/education" className="text-primary hover:underline">Learn</Link>
+            <Link href="/greenify" className="text-primary hover:underline">Greenify</Link>
           </nav>
         </div>
       </header>

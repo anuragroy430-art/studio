@@ -115,3 +115,16 @@ export const EducationContentOutputSchema = z.object({
     })).optional().describe("A list of 2-3 relevant YouTube videos with their titles and valid URLs."),
 });
 export type EducationContentOutput = z.infer<typeof EducationContentOutputSchema>;
+
+
+export const GreenifyImageInputSchema = z.object({
+    imageDataUrl: z.string().describe("A photo to be 'greenified', as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."),
+    prompt: z.string().describe("The user's instructions on how to make the image more eco-friendly."),
+});
+export type GreenifyImageInput = z.infer<typeof GreenifyImageInputSchema>;
+
+export const GreenifyImageOutputSchema = z.object({
+    greenifiedImageUrl: z.string().describe('The data URI of the generated eco-friendly image.'),
+    explanation: z.string().describe('A brief explanation of the changes made and the environmental benefits.'),
+});
+export type GreenifyImageOutput = z.infer<typeof GreenifyImageOutputSchema>;

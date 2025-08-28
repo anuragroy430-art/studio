@@ -182,6 +182,7 @@ export default function GamePage() {
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
             <Link href="/education" className="text-primary hover:underline">Learn</Link>
+            <Link href="/greenify" className="text-primary hover:underline">Greenify</Link>
           </nav>
         </div>
       </header>

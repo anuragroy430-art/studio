@@ -114,6 +114,7 @@ export default function CommunityPage() {
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
             <Link href="/education" className="text-primary hover:underline">Learn</Link>
+            <Link href="/greenify" className="text-primary hover:underline">Greenify</Link>
           </nav>
         </div>
       </header>

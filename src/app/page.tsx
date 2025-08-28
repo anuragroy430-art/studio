@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2, BookOpen } from 'lucide-react';
+import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2, BookOpen, Image as ImageIcon } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
 
@@ -26,6 +26,7 @@ export default function LandingPage() {
             <Link href="/community" className="text-primary font-medium hover:underline">Community</Link>
             <Link href="/game" className="text-primary font-medium hover:underline">Waste Sorting Game</Link>
             <Link href="/education" className="text-primary font-medium hover:underline">Learn</Link>
+            <Link href="/greenify" className="text-primary font-medium hover:underline">Greenify</Link>
           </nav>
         </div>
       </header>
@@ -33,7 +34,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white pt-20">
         <Image
-          src="https://picsum.photos/seed/nature/1600/900"
+          src="https://picsum.photos/seed/forest/1600/900"
           alt="Lush green forest"
           fill
           className="object-cover"
@@ -139,6 +140,17 @@ export default function LandingPage() {
               </CardContent>
             </Card>
              <Card className="text-center shadow-lg col-span-1">
+              <CardHeader>
+                <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
+                  <ImageIcon className="w-8 h-8 text-accent-foreground" />
+                </div>
+                <CardTitle>Greenify an Image</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Upload a photo and let our AI show you how to make it more eco-friendly, from gardens to gadgets.</p>
+              </CardContent>
+            </Card>
+            <Card className="text-center shadow-lg col-span-1">
               <CardHeader>
                 <div className="p-4 bg-accent/20 rounded-full w-fit mx-auto mb-4">
                   <Gamepad2 className="w-8 h-8 text-accent-foreground" />
