@@ -1,4 +1,3 @@
-// This is an AI-powered function that generates personalized eco-pledges based on user inputs.
 'use server';
 /**
  * @fileOverview Generates personalized eco-pledges based on user lifestyle questions.
@@ -11,8 +10,10 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import wav from 'wav';
+import { generateCertificate, CertificateInputSchema } from './generate-certificate';
 
 const LifestyleQuestionsSchema = z.object({
+  name: z.string().describe("The user's name."),
   commute: z
     .string()
     .describe(
@@ -57,6 +58,7 @@ const EcoPledgeOutputSchema = z.object({
   impact: z.string().describe('The measurable environmental impact of the pledge.'),
   motivation: z.string().describe('A motivational statement to encourage the user.'),
   audio: z.string().optional().describe('Audio of the eco-pledge using TTS'),
+  certificateUrl: z.string().optional().describe('URL of the generated pledge certificate image.'),
 });
 
 export type EcoPledgeOutput = z.infer<typeof EcoPledgeOutputSchema>;
@@ -67,9 +69,9 @@ export async function generateEcoPledge(input: EcoPledgeInput): Promise<EcoPledg
 
 const ecoPledgePrompt = ai.definePrompt({
   name: 'ecoPledgePrompt',
-  input: {schema: LifestyleQuestionsSchema},
+  input: {schema: CertificateInputSchema},
   output: {schema: EcoPledgeOutputSchema},
-  prompt: `Based on the following lifestyle questions, generate a personalized eco-pledge with specific actions, measurable impact, and a motivational tone.
+  prompt: `Based on the following lifestyle questions, generate a personalized eco-pledge with specific actions, measurable impact, and a motivational tone. The user's name is {{{name}}}.
 
 Lifestyle Questions:
 Commute: {{{commute}}}
@@ -93,7 +95,12 @@ const ecoPledgeFlow = ai.defineFlow(
     outputSchema: EcoPledgeOutputSchema,
   },
   async input => {
-    const {output} = await ecoPledgePrompt(input);
+    const [{output: pledgeOutput}, {output: certificateOutput}] = await Promise.all([
+        ecoPledgePrompt(input),
+        generateCertificate(input)
+    ]);
+    
+    const output = pledgeOutput!;
 
     // Text to speech
     const { media } = await ai.generate({
@@ -117,7 +124,8 @@ const ecoPledgeFlow = ai.defineFlow(
       );
       output!.audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
     }
-    return output!;
+    output.certificateUrl = certificateOutput!.certificateUrl;
+    return output;
   }
 );
 
