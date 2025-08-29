@@ -28,13 +28,7 @@ Please generate the following:
 });
 
 
-const generateEducationContentFlow = ai.defineFlow(
-  {
-    name: 'generateEducationContentFlow',
-    inputSchema: EducationContentInputSchema,
-    outputSchema: EducationContentOutputSchema,
-  },
-  async (input: EducationContentInput): Promise<EducationContentOutput> => {
+export async function generateEducationalContent(input: EducationContentInput): Promise<EducationContentOutput> {
     const result = await contentPrompt(input);
     const output = result.output;
 
@@ -43,9 +37,4 @@ const generateEducationContentFlow = ai.defineFlow(
     }
 
     return output;
-  }
-);
-
-export async function generateEducationalContent(input: EducationContentInput): Promise<EducationContentOutput> {
-    return generateEducationContentFlow(input);
 }

@@ -13,13 +13,7 @@ import {
     GreenifyImageOutputSchema 
 } from '../schemas';
 
-const greenifyImageFlow = ai.defineFlow(
-  {
-    name: 'greenifyImageFlow',
-    inputSchema: GreenifyImageInputSchema,
-    outputSchema: GreenifyImageOutputSchema,
-  },
-  async (input) => {
+export async function greenifyImage(input: GreenifyImageInput): Promise<GreenifyImageOutput> {
     
     const llmResponse = await ai.generate({
         model: 'googleai/gemini-2.0-flash-preview-image-generation',
@@ -51,9 +45,4 @@ const greenifyImageFlow = ai.defineFlow(
       greenifiedImageUrl: generatedImage.url,
       explanation: explanationText,
     };
-  }
-);
-
-export async function greenifyImage(input: GreenifyImageInput): Promise<GreenifyImageOutput> {
-    return greenifyImageFlow(input);
 }

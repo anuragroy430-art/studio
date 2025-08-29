@@ -10,13 +10,7 @@ import { CertificateInput, CertificateOutput, CertificateInputSchema, Certificat
 import * as fs from 'fs';
 import * as path from 'path';
 
-const generateCertificateFlow = ai.defineFlow(
-  {
-    name: 'generateCertificateFlow',
-    inputSchema: CertificateInputSchema,
-    outputSchema: CertificateOutputSchema,
-  },
-  async (input) => {
+export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
     console.log('Starting certificate generation flow with input:', input);
 
     const templatePath = path.join(process.cwd(), 'public', 'certificate-template.png');
@@ -65,9 +59,4 @@ const generateCertificateFlow = ai.defineFlow(
       console.error('Error during certificate generation:', error);
       throw error;
     }
-  }
-);
-
-export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
-    return generateCertificateFlow(input);
 }
