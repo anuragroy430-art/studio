@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Leaf, Recycle, Trash2, Dna, Bot, ChevronsRight, XCircle, CheckCircle, RefreshCw, Trophy, Clock, Menu, Award, Target, Gauge, Users, Gamepad2, BookOpen, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ interface WasteItem {
   fact: string;
 }
 
-const wasteItems: WasteItem[] = [
+const allWasteItems: WasteItem[] = [
   { name: "Apple Core", type: "compost", emoji: "🍎", fact: "Apple cores can be composted to create nutrient-rich soil." },
   { name: "Plastic Bottle", type: "recycling", emoji: "🍾", fact: "Recycling one plastic bottle can save enough energy to power a 60W bulb for 6 hours." },
   { name: "Styrofoam Cup", type: "waste", emoji: "🥤", fact: "Styrofoam is not typically recyclable and can take 500 years to decompose." },
@@ -41,9 +41,9 @@ export default function GamePage() {
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null);
+  const [gameItems, setGameItems] = useState<WasteItem[]>([]);
 
-  const shuffledItems = useMemo(() => [...wasteItems].sort(() => Math.random() - 0.5), []);
-  const currentItem = shuffledItems[currentItemIndex];
+  const currentItem = gameItems[currentItemIndex];
 
   useEffect(() => {
     if (gameState !== "playing") return;
@@ -64,6 +64,7 @@ export default function GamePage() {
     setScore(0);
     setTimeLeft(GAME_DURATION);
     setCurrentItemIndex(0);
+    setGameItems([...allWasteItems].sort(() => Math.random() - 0.5));
     setGameState("playing");
     setFeedback(null);
   };
@@ -80,7 +81,7 @@ export default function GamePage() {
 
     setTimeout(() => {
       setFeedback(null);
-      if (currentItemIndex < shuffledItems.length - 1) {
+      if (currentItemIndex < gameItems.length - 1) {
         setCurrentItemIndex((prev) => prev + 1);
       } else {
         setGameState("over");
@@ -237,7 +238,7 @@ export default function GamePage() {
       <main className="flex-grow py-12 md:py-16 flex items-center justify-center">
         <div className="container mx-auto px-4 max-w-lg">
           {gameState === "start" && renderStartScreen()}
-          {gameState === "playing" && renderGameScreen()}
+          {gameState === "playing" && currentItem && renderGameScreen()}
           {gameState === "over" && renderGameOverScreen()}
         </div>
       </main>
