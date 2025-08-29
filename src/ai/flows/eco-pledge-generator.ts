@@ -22,6 +22,7 @@ const pledgePrompt = ai.definePrompt(
         name: 'pledgePrompt',
         input: { schema: EcoPledgeInputSchema },
         output: { schema: EcoPledgeOutputSchema },
+        model: 'googleai/gemini-1.5-flash-preview',
         prompt: `You are an environmental expert and motivational coach. Your goal is to generate a personalized, inspiring, and actionable eco-pledge based on the user's lifestyle.
 
         User's lifestyle information:
