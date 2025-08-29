@@ -26,7 +26,7 @@ Make the challenge feel positive and encouraging. It should feel like a small st
 });
 
 
-export const generateEcoChallenge = ai.defineFlow(
+const generateChallengeFlow = ai.defineFlow(
   {
     name: 'generateChallengeFlow',
     inputSchema: EcoChallengeInputSchema,
@@ -43,3 +43,7 @@ export const generateEcoChallenge = ai.defineFlow(
     return output;
   }
 );
+
+export async function generateEcoChallenge(input: EcoChallengeInput): Promise<EcoChallengeOutput> {
+    return generateChallengeFlow(input);
+}

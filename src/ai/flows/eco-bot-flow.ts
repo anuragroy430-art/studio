@@ -30,7 +30,7 @@ User's new message: {{message}}
 Please place your answer in the 'response' field.`,
 });
 
-export const askEcoBot = ai.defineFlow(
+const ecoBotFlow = ai.defineFlow(
   {
     name: 'ecoBotFlow',
     inputSchema: EcoBotInputSchema,
@@ -47,3 +47,7 @@ export const askEcoBot = ai.defineFlow(
     return output;
   }
 );
+
+export async function askEcoBot(input: EcoBotInput): Promise<EcoBotOutput> {
+    return ecoBotFlow(input);
+}

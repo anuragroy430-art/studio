@@ -61,7 +61,7 @@ async function toWav(
     });
   }
 
-export const generateEcoPledge = ai.defineFlow(
+const ecoPledgeFlow = ai.defineFlow(
   {
     name: 'ecoPledgeFlow',
     inputSchema: LifestyleQuestionsSchema,
@@ -141,3 +141,7 @@ export const generateEcoPledge = ai.defineFlow(
     return output;
   }
 );
+
+export async function generateEcoPledge(input: EcoPledgeInput): Promise<EcoPledgeOutput> {
+    return ecoPledgeFlow(input);
+}

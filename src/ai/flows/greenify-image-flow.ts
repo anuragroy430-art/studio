@@ -8,8 +8,7 @@
 import { ai } from '@/ai/genkit';
 import { GreenifyImageInput, GreenifyImageOutput, GreenifyImageInputSchema, GreenifyImageOutputSchema } from '../schemas';
 
-
-export const greenifyImage = ai.defineFlow(
+const greenifyImageFlow = ai.defineFlow(
   {
     name: 'greenifyImageFlow',
     inputSchema: GreenifyImageInputSchema,
@@ -19,17 +18,16 @@ export const greenifyImage = ai.defineFlow(
     
     const llmResponse = await ai.generate({
         model: 'googleai/gemini-2.0-flash-preview-image-generation',
-        prompt: `You are an AI assistant with a talent for environmental science and creative image editing. Your task is to "greenify" a user's image based on their prompt.
+        prompt: [
+            { text: `You are an AI assistant with a talent for creative image editing. Your task is to "greenify" a user's image based on their instructions.
 
-        User's instructions: "${input.prompt}"
-        
-        Analyze the user's image and their instructions.
-        Generate a new image that visually incorporates eco-friendly changes as requested. Examples include adding solar panels, replacing a gas car with an electric one, turning a lawn into a native plant garden, or replacing plastic items with reusable alternatives.
-        The generated image should be a realistic and aesthetically pleasing transformation of the original.
-
-        Also provide a brief "explanation" describing the changes you made and their positive environmental impact. For example, "I've added solar panels to the roof, which can reduce a household's carbon footprint by several tons per year."
-        `,
-        input: [
+            User's instructions: "${input.prompt}"
+            
+            Analyze the user's image and their instructions.
+            Generate a new image that visually incorporates eco-friendly changes as requested. Examples include adding solar panels, replacing a gas car with an electric one, turning a lawn into a native plant garden, or replacing plastic items with reusable alternatives.
+            The generated image should be a realistic and aesthetically pleasing transformation of the original.
+    
+            Also provide a brief "explanation" describing the changes you made and their positive environmental impact. For example, "I've added solar panels to the roof, which can reduce a household's carbon footprint by several tons per year."`},
             { media: { url: input.imageDataUrl } }
         ],
         config: {
@@ -50,3 +48,7 @@ export const greenifyImage = ai.defineFlow(
     };
   }
 );
+
+export async function greenifyImage(input: GreenifyImageInput): Promise<GreenifyImageOutput> {
+    return greenifyImageFlow(input);
+}
