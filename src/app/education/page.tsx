@@ -229,5 +229,3 @@ export default function EducationPage() {
       </footer>
     </div>
     );
-
-    

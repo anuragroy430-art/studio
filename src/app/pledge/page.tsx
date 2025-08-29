@@ -472,5 +472,3 @@ export default function EcoPledgerPage() {
     </div>
   );
 }
-
-    
