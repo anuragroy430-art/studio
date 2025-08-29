@@ -12,31 +12,6 @@ export async function greenifyImage(input: GreenifyImageInput): Promise<Greenify
   return greenifyImageFlow(input);
 }
 
-const greenifyImagePrompt = ai.definePrompt({
-    name: 'greenifyImagePrompt',
-    input: { schema: GreenifyImageInputSchema },
-    output: { schema: GreenifyImageOutputSchema },
-    prompt: `You are an AI assistant with a talent for environmental science and creative image editing. Your task is to "greenify" a user's image based on their prompt.
-
-    User's instructions: "{{prompt}}"
-    
-    Image to modify: {{media url=imageDataUrl}}
-    
-    1.  Analyze the user's image and their instructions.
-    2.  Generate a new image that visually incorporates eco-friendly changes as requested. Examples include adding solar panels, replacing a gas car with an electric one, turning a lawn into a native plant garden, or replacing plastic items with reusable alternatives.
-    3.  The generated image should be a realistic and aesthetically pleasing transformation of the original.
-    4.  Write a brief "explanation" describing the changes you made and their positive environmental impact. For example, "I've added solar panels to the roof, which can reduce a household's carbon footprint by several tons per year."
-
-    Generate a response in JSON format that conforms to the following Zod schema:
-
-    'z.object({
-        greenifiedImageUrl: z.string().describe("The data URI of the generated eco-friendly image."),
-        explanation: z.string().describe("A brief explanation of the changes made and the environmental benefits.")
-    })'
-    
-    Return only the valid JSON object.`,
-});
-
 const greenifyImageFlow = ai.defineFlow(
   {
     name: 'greenifyImageFlow',
