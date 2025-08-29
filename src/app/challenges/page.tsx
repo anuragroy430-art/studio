@@ -44,26 +44,61 @@ export default function ChallengesPage() {
         });
     };
 
+    const navLinks = [
+        { href: "/pledge", icon: Award, text: "Take the Pledge" },
+        { href: "/challenges", icon: Target, text: "Challenges" },
+        { href: "/dashboard", icon: Gauge, text: "Dashboard" },
+        { href: "/community", icon: Users, text: "Community" },
+        { href: "/game", icon: Gamepad2, text: "Waste Sorting Game" },
+        { href: "/education", icon: BookOpen, text: "Learn" },
+        { href: "/greenify", icon: ImageIcon, text: "Greenify" },
+    ];
+
     return (
     <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
-      <header className="py-6 bg-card shadow-sm">
+      <header className="py-4 bg-card shadow-sm sticky top-0 z-40">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
-          <Link href="/" className="inline-block">
-            <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
               <Leaf className="w-8 h-8 text-primary" />
               <h1 className="text-2xl font-bold font-headline text-primary">
                 EcoPledger
               </h1>
-            </div>
           </Link>
-          <nav className="flex flex-wrap gap-4 items-center">
-            <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
-            <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
-            <Link href="/community" className="text-primary hover:underline">Community</Link>
-            <Link href="/game" className="text-primary hover:underline">Waste Sorting Game</Link>
-            <Link href="/education" className="text-primary hover:underline">Learn</Link>
-            <Link href="/greenify" className="text-primary hover:underline">Greenify</Link>
+          <nav className="hidden md:flex gap-4 items-center">
+             {navLinks.map(link => (
+                <Link key={link.href} href={link.href} className="text-sm font-medium text-primary hover:underline underline-offset-4">
+                    {link.text}
+                </Link>
+             ))}
           </nav>
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="w-6 h-6 text-primary" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px]">
+                <div className="p-6">
+                    <Link href="/" className="flex items-center gap-3 mb-8">
+                        <Leaf className="w-8 h-8 text-primary" />
+                        <h1 className="text-2xl font-bold font-headline text-primary">
+                            EcoPledger
+                        </h1>
+                    </Link>
+                    <nav className="flex flex-col gap-4">
+                        {navLinks.map(link => (
+                            <Link key={link.href} href={link.href} className="text-lg font-medium text-foreground hover:text-primary transition-colors flex items-center gap-4 p-2 rounded-md hover:bg-primary/10">
+                                <link.icon className="w-6 h-6 text-primary" />
+                                {link.text}
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
