@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Generates educational content on a given topic.
@@ -22,14 +23,10 @@ const contentPrompt = ai.definePrompt({
 
 The user has requested an article on the following topic: "{{topic}}"
 
-Generate a well-structured article that includes:
-1.  A compelling title.
-2.  An introduction that hooks the reader.
-3.  A main body that explains the topic in detail, using simple language. Break it down into key points or sections.
-4.  Actionable tips or advice that the reader can implement in their daily life.
-5.  A concluding paragraph that summarizes the key takeaways and offers encouragement.
-
-In addition to the article, find 2-3 relevant YouTube videos on the same topic and provide their titles and full URLs.`,
+Please generate the following:
+1.  A compelling "title" for the article.
+2.  The full "content" of the article, formatted with markdown (e.g., using # for titles, ## for headings, and * for list items). The content should include an introduction, a main body explaining the topic in detail, and actionable tips.
+3.  A list of 2-3 relevant "youtubeLinks" on the same topic, including their full URL and title.`,
 });
 
 
