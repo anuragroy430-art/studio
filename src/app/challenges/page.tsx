@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { Leaf, Loader2, WandSparkles, Target, Lightbulb } from "lucide-react";
+import { Leaf, Loader2, WandSparkles, Target, Lightbulb, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { handleGenerateChallenge } from "@/app/actions";
 import type { EcoChallengeOutput } from "@/ai/schemas";
 import { cn } from "@/lib/utils";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function ChallengesPage() {
     const [pledge, setPledge] = useState("");
@@ -62,6 +63,27 @@ export default function ChallengesPage() {
             <Link href="/education" className="text-primary hover:underline">Learn</Link>
             <Link href="/greenify" className="text-primary hover:underline">Greenify</Link>
           </nav>
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Open navigation menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <div className="grid gap-4 py-6">
+                    <Link href="/pledge" className="text-lg font-medium text-primary hover:underline">Take the Pledge</Link>
+                    <Link href="/challenges" className="text-lg font-medium text-primary hover:underline">Challenges</Link>
+                    <Link href="/dashboard" className="text-lg font-medium text-primary hover:underline">Dashboard</Link>
+                    <Link href="/community" className="text-lg font-medium text-primary hover:underline">Community</Link>
+                    <Link href="/game" className="text-lg font-medium text-primary hover:underline">Waste Sorting Game</Link>
+                    <Link href="/education" className="text-lg font-medium text-primary hover:underline">Learn</Link>
+                    <Link href="/greenify" className="text-lg font-medium text-primary hover:underline">Greenify</Link>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
