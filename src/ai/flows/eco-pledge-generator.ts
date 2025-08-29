@@ -20,20 +20,21 @@ const ecoPledgePrompt = ai.definePrompt({
   output: {schema: EcoPledgeOutputSchema},
   prompt: `You are an AI assistant for EcoPledger. Your goal is to generate a personalized eco-pledge based on a user's answers to lifestyle questions.
   
-  The user's name is: {{name}}
+The user's name is: {{name}}
   
-  Here are the user's answers:
-  - Commute: {{commute}}
-  - Diet: {{diet}}
-  - Shopping: {{shopping}}
-  - Energy Use: {{energyUse}}
-  - Waste Management: {{wasteManagement}}
-  - Water Consumption: {{waterConsumption}}
-  - Travel Habits: {{travelHabits}}
+Here are the user's answers:
+- Commute: {{commute}}
+- Diet: {{diet}}
+- Shopping: {{shopping}}
+- Energy Use: {{energyUse}}
+- Waste Management: {{wasteManagement}}
+- Water Consumption: {{waterConsumption}}
+- Travel Habits: {{travelHabits}}
   
-  Based on these answers, create a short, inspiring "pledge" sentence.
-  Then, create a sentence for the "impact" that quantifies the positive effect of their actions.
-  Finally, write a "motivation" sentence to encourage them.`,
+Based on these answers, create the following fields:
+1.  A "pledge" field containing a short, inspiring pledge sentence.
+2.  An "impact" field containing a sentence that quantifies the positive effect of their actions.
+3.  A "motivation" field containing a sentence to encourage them.`,
 });
 
 async function toWav(
