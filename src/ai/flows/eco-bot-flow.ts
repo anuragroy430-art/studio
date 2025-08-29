@@ -6,21 +6,10 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
+import { EcoBotInput, EcoBotOutput, EcoBotInputSchema, EcoBotOutputSchema } from '../schemas';
 
-const EcoBotInputSchema = z.object({
-  message: z.string().describe('The user\'s message to the Eco-Bot.'),
-  history: z.array(z.object({
-    role: z.enum(['user', 'model']),
-    content: z.string(),
-  })).optional().describe('The conversation history.'),
-});
 
-const EcoBotOutputSchema = z.object({
-  response: z.string().describe('The Eco-Bot\'s response.'),
-});
-
-export async function askEcoBot(input: z.infer<typeof EcoBotInputSchema>): Promise<z.infer<typeof EcoBotOutputSchema>> {
+export async function askEcoBot(input: EcoBotInput): Promise<EcoBotOutput> {
   return ecoBotFlow(input);
 }
 
