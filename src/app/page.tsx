@@ -39,37 +39,37 @@ export default function LandingPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="p-0">
-                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                
                 <div className="flex items-center gap-3 p-4 border-b">
                     <Leaf className="w-8 h-8 text-primary" />
                     <h2 className="text-2xl font-bold font-headline text-primary">EcoPledger</h2>
                 </div>
                 <nav className="grid gap-2 p-4">
-                    <Link href="/pledge" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/pledge" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <Award className="h-5 w-5" />
                         Take the Pledge
                     </Link>
-                    <Link href="/challenges" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/challenges" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <Target className="h-5 w-5" />
                         Challenges
                     </Link>
-                    <Link href="/dashboard" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/dashboard" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <Gauge className="h-5 w-5" />
                         Dashboard
                     </Link>
-                    <Link href="/community" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/community" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <Users className="h-5 w-5" />
                         Community
                     </Link>
-                    <Link href="/game" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/game" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <Gamepad2 className="h-5 w-5" />
                         Waste Sorting Game
                     </Link>
-                    <Link href="/education" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/education" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <BookOpen className="h-5 w-5" />
                         Learn
                     </Link>
-                    <Link href="/greenify" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
+                    <Link href="/greenify" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
                         <ImageIcon className="h-5 w-5" />
                         Greenify
                     </Link>
