@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useTransition } from "react";
@@ -31,23 +30,26 @@ export default function EducationPage() {
 
     const handleSubmit = (selectedTopic?: string) => {
         const topicToGenerate = selectedTopic || topic;
-        if (topicToGenerate.trim().length < 3) {
+        if (!topicToGenerate || topicToGenerate.trim().length < 3) {
             toast({
                 variant: "destructive",
-                title: "Topic is too short",
-                description: "Please enter a topic to generate an article.",
+                title: "Invalid Topic",
+                description: "Please enter a valid topic with at least 3 characters.",
             });
+            console.error("Validation failed: topicToGenerate is invalid.", { topicToGenerate });
             return;
         }
 
+        console.log("Generating content for topic:", topicToGenerate);
         setArticle(null); // Clear previous article
 
         startTransition(async () => {
             try {
                 const result = await handleGenerateEducationContent({ topic: topicToGenerate });
                 setArticle(result);
+                console.log("Generated content successfully:", result);
             } catch (error) {
-                console.error(error);
+                console.error("Error in handleGenerateEducationContent:", error);
                 toast({
                     variant: "destructive",
                     title: "Oh no! Something went wrong.",
