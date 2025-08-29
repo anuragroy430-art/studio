@@ -8,11 +8,8 @@
 import {ai} from '@/ai/genkit';
 import wav from 'wav';
 import { generateCertificate } from './generate-certificate';
-import { EcoPledgeInput, EcoPledgeOutput, EcoPledgeOutputSchema, LifestyleQuestionsSchema } from '../schemas';
-
-export async function generateEcoPledge(input: EcoPledgeInput): Promise<EcoPledgeOutput> {
-  return ecoPledgeFlow(input);
-}
+import { EcoPledgeOutput, EcoPledgeOutputSchema, LifestyleQuestionsSchema } from '../schemas';
+import type { EcoPledgeInput } from '../schemas';
 
 const ecoPledgePrompt = ai.definePrompt({
   name: 'ecoPledgePrompt',
@@ -64,13 +61,13 @@ async function toWav(
     });
   }
 
-const ecoPledgeFlow = ai.defineFlow(
+export const generateEcoPledge = ai.defineFlow(
   {
     name: 'ecoPledgeFlow',
     inputSchema: LifestyleQuestionsSchema,
     outputSchema: EcoPledgeOutputSchema,
   },
-  async input => {
+  async (input: EcoPledgeInput): Promise<EcoPledgeOutput> => {
     console.log('Starting ecoPledgeFlow with input:', input.name);
 
     // Step 1: Generate pledge text

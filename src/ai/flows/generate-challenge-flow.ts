@@ -6,13 +6,8 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import { EcoChallengeInputSchema, EcoChallengeOutputSchema } from '../schemas';
 import type { EcoChallengeInput, EcoChallengeOutput } from '../schemas';
-
-export async function generateEcoChallenge(input: EcoChallengeInput): Promise<EcoChallengeOutput> {
-  return generateChallengeFlow(input);
-}
 
 const challengePrompt = ai.definePrompt({
     name: 'ecoChallengePrompt',
@@ -31,13 +26,13 @@ Make the challenge feel positive and encouraging. It should feel like a small st
 });
 
 
-const generateChallengeFlow = ai.defineFlow(
+export const generateEcoChallenge = ai.defineFlow(
   {
     name: 'generateChallengeFlow',
     inputSchema: EcoChallengeInputSchema,
     outputSchema: EcoChallengeOutputSchema,
   },
-  async (input) => {
+  async (input: EcoChallengeInput): Promise<EcoChallengeOutput> => {
     const result = await challengePrompt(input);
     const output = result.output;
 

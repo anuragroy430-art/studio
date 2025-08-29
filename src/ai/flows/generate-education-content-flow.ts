@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview Generates educational content on a given topic.
@@ -7,13 +6,8 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import { EducationContentInputSchema, EducationContentOutputSchema } from '../schemas';
 import type { EducationContentInput, EducationContentOutput } from '../schemas';
-
-export async function generateEducationalContent(input: EducationContentInput): Promise<EducationContentOutput> {
-  return generateEducationContentFlow(input);
-}
 
 const contentPrompt = ai.definePrompt({
     name: 'educationContentPrompt',
@@ -30,13 +24,13 @@ Please generate the following:
 });
 
 
-const generateEducationContentFlow = ai.defineFlow(
+export const generateEducationalContent = ai.defineFlow(
   {
     name: 'generateEducationContentFlow',
     inputSchema: EducationContentInputSchema,
     outputSchema: EducationContentOutputSchema,
   },
-  async (input) => {
+  async (input: EducationContentInput): Promise<EducationContentOutput> => {
     const result = await contentPrompt(input);
     const output = result.output;
 

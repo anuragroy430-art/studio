@@ -2,15 +2,11 @@
 /**
  * @fileOverview A conversational AI flow for the Eco-Bot.
  *
- * - ecoBotFlow - Handles a user's message and generates a response.
+ * - askEcoBot - Handles a user's message and generates a response.
  */
 
 import { ai } from '@/ai/genkit';
 import { EcoBotInput, EcoBotOutput, EcoBotInputSchema, EcoBotOutputSchema } from '../schemas';
-
-export async function askEcoBot(input: EcoBotInput): Promise<EcoBotOutput> {
-  return ecoBotFlow(input);
-}
 
 const ecoBotPrompt = ai.definePrompt({
   name: 'ecoBotPrompt',
@@ -34,13 +30,13 @@ User's new message: {{message}}
 Please place your answer in the 'response' field.`,
 });
 
-const ecoBotFlow = ai.defineFlow(
+export const askEcoBot = ai.defineFlow(
   {
     name: 'ecoBotFlow',
     inputSchema: EcoBotInputSchema,
     outputSchema: EcoBotOutputSchema,
   },
-  async (input) => {
+  async (input: EcoBotInput): Promise<EcoBotOutput> => {
     const result = await ecoBotPrompt(input);
     const output = result.output;
 

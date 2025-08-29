@@ -10,11 +10,7 @@ import { CertificateInput, CertificateOutput, CertificateInputSchema, Certificat
 import * as fs from 'fs';
 import * as path from 'path';
 
-export async function generateCertificate(input: CertificateInput): Promise<CertificateOutput> {
-  return generateCertificateFlow(input);
-}
-
-const generateCertificateFlow = ai.defineFlow(
+export const generateCertificate = ai.defineFlow(
   {
     name: 'generateCertificateFlow',
     inputSchema: CertificateInputSchema,

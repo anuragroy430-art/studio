@@ -8,11 +8,8 @@
 import { ai } from '@/ai/genkit';
 import { GreenifyImageInput, GreenifyImageOutput, GreenifyImageInputSchema, GreenifyImageOutputSchema } from '../schemas';
 
-export async function greenifyImage(input: GreenifyImageInput): Promise<GreenifyImageOutput> {
-  return greenifyImageFlow(input);
-}
 
-const greenifyImageFlow = ai.defineFlow(
+export const greenifyImage = ai.defineFlow(
   {
     name: 'greenifyImageFlow',
     inputSchema: GreenifyImageInputSchema,
