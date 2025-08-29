@@ -4,6 +4,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import Jimp from 'jimp';
 import wav from 'wav';
 import { Readable } from 'stream';
+import path from 'path';
 
 const s3Client = new S3Client({
     region: process.env.AWS_REGION!,
@@ -59,7 +60,8 @@ export async function textToSpeech(text: string): Promise<string> {
 }
 
 export async function generateCertificate(name: string, pledge: string, date: string): Promise<string> {
-    const template = await Jimp.read('./public/certificate-template.png');
+    const templatePath = path.join(process.cwd(), 'public', 'certificate-template.png');
+    const template = await Jimp.read(templatePath);
     const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
     const fontPledge = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
 
