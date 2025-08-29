@@ -17,7 +17,7 @@ const contentPrompt = ai.definePrompt({
     name: 'educationContentPrompt',
     input: { schema: EducationContentInputSchema },
     output: { schema: EducationContentOutputSchema },
-    model: 'googleai/gemini-1.5-flash-preview',
+    model: 'googleai/gemini-1.5-flash-latest',
     prompt: `You are an expert environmental science writer. Your goal is to produce a clear, engaging, and informative article for a general audience based on the provided topic.
 
 The user has requested an article on the following topic: "{{topic}}"

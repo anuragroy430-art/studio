@@ -12,7 +12,7 @@ const ecoBotPrompt = ai.definePrompt({
   name: 'ecoBotPrompt',
   input: { schema: EcoBotInputSchema },
   output: { schema: EcoBotOutputSchema },
-  model: 'googleai/gemini-1.5-flash-preview',
+  model: 'googleai/gemini-1.5-flash-latest',
   prompt: `You are Eco-Bot, a friendly and knowledgeable AI assistant for the EcoPledger app. Your goal is to help users with their questions about environmental impact, sustainability, and how to live a greener life.
 
 Keep your answers concise, positive, and encouraging. Use simple language that everyone can understand.

@@ -18,7 +18,7 @@ const challengePrompt = ai.definePrompt({
     name: 'ecoChallengePrompt',
     input: { schema: EcoChallengeInputSchema },
     output: { schema: EcoChallengeOutputSchema },
-    model: 'googleai/gemini-1.5-flash-preview',
+    model: 'googleai/gemini-1.5-flash-latest',
     prompt: `You are an AI assistant for EcoPledger. Your task is to create an engaging and actionable environmental challenge based on a user's pledge.
 
 The user's pledge is: "{{pledge}}"
