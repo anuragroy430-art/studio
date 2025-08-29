@@ -63,7 +63,7 @@ const generateCertificateFlow = ai.defineFlow(
       };
     } catch (error) {
       console.error('Error during certificate generation:', error);
-      throw error; // Re-throw the error to be caught by the parent flow
+      throw error;
     }
   }
 );

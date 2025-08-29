@@ -6,8 +6,12 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { EducationContentInputSchema, EducationContentOutputSchema } from '../schemas';
-import type { EducationContentInput, EducationContentOutput } from '../schemas';
+import { 
+    EducationContentInput, 
+    EducationContentOutput,
+    EducationContentInputSchema, 
+    EducationContentOutputSchema 
+} from '../schemas';
 
 const contentPrompt = ai.definePrompt({
     name: 'educationContentPrompt',

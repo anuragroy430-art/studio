@@ -3,6 +3,7 @@
  */
 import { z } from 'zod';
 
+// --- Eco Pledge Generator ---
 export const LifestyleQuestionsSchema = z.object({
   name: z.string().describe("The user's name."),
   commute: z
@@ -42,7 +43,6 @@ export const LifestyleQuestionsSchema = z.object({
     ),
   currentDate: z.string().describe("The current date of the pledge.")
 });
-
 export type EcoPledgeInput = z.infer<typeof LifestyleQuestionsSchema>;
 
 export const EcoPledgeOutputSchema = z.object({
@@ -52,23 +52,24 @@ export const EcoPledgeOutputSchema = z.object({
   audio: z.string().optional().describe('Audio of the eco-pledge using TTS'),
   certificateUrl: z.string().optional().describe('URL of the generated pledge certificate image.'),
 });
-
 export type EcoPledgeOutput = z.infer<typeof EcoPledgeOutputSchema>;
 
+
+// --- Certificate Generator ---
 export const CertificateInputSchema = z.object({
     name: z.string().describe("The user's name for the certificate."),
     pledge: z.string().describe('The personalized eco-pledge text.'),
     date: z.string().describe('The date for the certificate.')
 });
-  
 export type CertificateInput = z.infer<typeof CertificateInputSchema>;
   
 export const CertificateOutputSchema = z.object({
     certificateUrl: z.string().describe('The data URI of the generated certificate image.'),
 });
-
 export type CertificateOutput = z.infer<typeof CertificateOutputSchema>;
 
+
+// --- Eco Bot ---
 export const EcoBotInputSchema = z.object({
     message: z.string(),
     history: z.array(z.object({
@@ -83,6 +84,8 @@ export const EcoBotOutputSchema = z.object({
 });
 export type EcoBotOutput = z.infer<typeof EcoBotOutputSchema>;
 
+
+// --- Eco Challenge ---
 export const EcoChallengeInputSchema = z.object({
     pledge: z.string().describe("The user's eco-pledge."),
 });
@@ -95,12 +98,8 @@ export const EcoChallengeOutputSchema = z.object({
 });
 export type EcoChallengeOutput = z.infer<typeof EcoChallengeOutputSchema>;
 
-export const GenerateForestVideoOutputSchema = z.object({
-    videoUrl: z.string().describe('The URL of the generated video.'),
-    contentType: z.string().describe('The content type of the video.'),
-});
-export type GenerateForestVideoOutput = z.infer<typeof GenerateForestVideoOutputSchema>;
 
+// --- Educational Content ---
 export const EducationContentInputSchema = z.object({
     topic: z.string().describe("The sustainability topic the user wants to learn about."),
 });
@@ -117,6 +116,7 @@ export const EducationContentOutputSchema = z.object({
 export type EducationContentOutput = z.infer<typeof EducationContentOutputSchema>;
 
 
+// --- Greenify Image ---
 export const GreenifyImageInputSchema = z.object({
     imageDataUrl: z.string().describe("A photo to be 'greenified', as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."),
     prompt: z.string().describe("The user's instructions on how to make the image more eco-friendly."),

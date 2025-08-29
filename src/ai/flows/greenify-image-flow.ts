@@ -6,7 +6,12 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { GreenifyImageInput, GreenifyImageOutput, GreenifyImageInputSchema, GreenifyImageOutputSchema } from '../schemas';
+import { 
+    GreenifyImageInput, 
+    GreenifyImageOutput, 
+    GreenifyImageInputSchema, 
+    GreenifyImageOutputSchema 
+} from '../schemas';
 
 const greenifyImageFlow = ai.defineFlow(
   {

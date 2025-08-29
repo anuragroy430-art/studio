@@ -8,8 +8,12 @@
 import {ai} from '@/ai/genkit';
 import wav from 'wav';
 import { generateCertificate } from './generate-certificate';
-import { EcoPledgeOutput, EcoPledgeOutputSchema, LifestyleQuestionsSchema } from '../schemas';
-import type { EcoPledgeInput } from '../schemas';
+import { 
+    LifestyleQuestionsSchema,
+    EcoPledgeOutput,
+    EcoPledgeOutputSchema,
+    EcoPledgeInput
+} from '../schemas';
 
 const ecoPledgePrompt = ai.definePrompt({
   name: 'ecoPledgePrompt',
@@ -70,7 +74,6 @@ const ecoPledgeFlow = ai.defineFlow(
   async (input: EcoPledgeInput): Promise<EcoPledgeOutput> => {
     console.log('Starting ecoPledgeFlow with input:', input.name);
 
-    // Step 1: Generate pledge text
     const pledgeResult = await ecoPledgePrompt(input);
     const output = pledgeResult.output;
 
@@ -80,9 +83,7 @@ const ecoPledgeFlow = ai.defineFlow(
     }
     console.log('Successfully generated pledge text.');
 
-    // Parallel execution for certificate and TTS
     const [certificateResult, ttsResult] = await Promise.allSettled([
-      // Step 2: Generate certificate
       (async () => {
         try {
           console.log('Starting certificate generation...');
@@ -91,10 +92,9 @@ const ecoPledgeFlow = ai.defineFlow(
           return cert;
         } catch (error) {
           console.error('Error during certificate generation:', error);
-          return null; // Return null on failure
+          return null;
         }
       })(),
-      // Step 3: Generate TTS audio
       (async () => {
         try {
           console.log('Starting TTS generation...');
@@ -114,19 +114,17 @@ const ecoPledgeFlow = ai.defineFlow(
           return tts;
         } catch (error) {
           console.error('Error during TTS generation:', error);
-          return null; // Return null on failure
+          return null;
         }
       })()
     ]);
     
-    // Process certificate result
     if (certificateResult.status === 'fulfilled' && certificateResult.value?.certificateUrl) {
       output.certificateUrl = certificateResult.value.certificateUrl;
     } else {
       console.warn('Certificate generation did not return a URL or failed.');
     }
 
-    // Process TTS result
     if (ttsResult.status === 'fulfilled' && ttsResult.value?.media?.url) {
        const audioBuffer = Buffer.from(
           ttsResult.value.media.url.substring(ttsResult.value.media.url.indexOf(',') + 1),

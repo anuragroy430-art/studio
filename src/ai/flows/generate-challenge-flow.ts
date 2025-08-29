@@ -6,8 +6,13 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { EcoChallengeInputSchema, EcoChallengeOutputSchema } from '../schemas';
-import type { EcoChallengeInput, EcoChallengeOutput } from '../schemas';
+import { 
+    EcoChallengeInput, 
+    EcoChallengeOutput, 
+    EcoChallengeInputSchema, 
+    EcoChallengeOutputSchema 
+} from '../schemas';
+
 
 const challengePrompt = ai.definePrompt({
     name: 'ecoChallengePrompt',
