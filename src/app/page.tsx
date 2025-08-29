@@ -78,26 +78,16 @@ export default function LandingPage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 p-4 animate-in fade-in zoom-in-90 duration-500">
-          <div className="flex justify-center items-center gap-8 md:gap-12 flex-wrap">
-            <Image 
-                src="https://picsum.photos/seed/mascot/200/200" 
-                alt="EcoPledger Mascot" 
-                width={150} 
-                height={150}
-                className="w-24 h-24 md:w-36 md:h-36 rounded-full border-4 border-primary bg-background/20 backdrop-blur-sm"
-                data-ai-hint="friendly robot mascot"
-            />
-            <div className="flex flex-col items-center md:items-start text-center md:text-left">
-              <div className="flex items-center gap-4">
-                <Leaf className="w-16 h-16 text-primary hidden md:block" />
-                <h1 className="text-5xl md:text-7xl font-bold font-headline text-white">
-                  EcoPledger
-                </h1>
-              </div>
-              <p className="text-lg md:text-2xl mt-4 max-w-xl mx-auto md:mx-0">
-                Discover your environmental impact and commit to a greener future.
-              </p>
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-4">
+              <Leaf className="w-16 h-16 text-primary" />
+              <h1 className="text-5xl md:text-7xl font-bold font-headline text-white">
+                EcoPledger
+              </h1>
             </div>
+            <p className="text-lg md:text-2xl mt-4 max-w-xl">
+              Discover your environmental impact and commit to a greener future.
+            </p>
           </div>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 px-10 transition-transform hover:scale-105 active:scale-100">
