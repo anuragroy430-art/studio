@@ -189,4 +189,5 @@ export default function ChallengesPage() {
       </footer>
     </div>
     );
-}
+
+    
