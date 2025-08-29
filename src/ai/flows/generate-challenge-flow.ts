@@ -18,13 +18,16 @@ const challengePrompt = ai.definePrompt({
     name: 'ecoChallengePrompt',
     input: { schema: EcoChallengeInputSchema },
     output: { schema: EcoChallengeOutputSchema },
-    prompt: `You are an AI assistant for EcoPledger, designed to create engaging and actionable environmental challenges.
-    
-    Based on the user's pledge, generate a single, specific, and achievable daily or weekly eco-challenge.
-    
-    The user's pledge is: "{{pledge}}"
-    
-    Make the challenge positive and encouraging. It should feel like a small step, not a huge burden.`,
+    prompt: `You are an AI assistant for EcoPledger. Your task is to create an engaging and actionable environmental challenge based on a user's pledge.
+
+The user's pledge is: "{{pledge}}"
+
+Based on this pledge, please generate the following:
+1. A short, catchy "title" for the challenge.
+2. A one or two-sentence "description" of what the user should do. Make it a specific and achievable daily or weekly task.
+3. A brief "benefit" explaining the positive environmental impact of this single action.
+
+Make the challenge feel positive and encouraging. It should feel like a small step, not a huge burden.`,
 });
 
 
