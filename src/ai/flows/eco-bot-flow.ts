@@ -8,7 +8,6 @@
 import { ai } from '@/ai/genkit';
 import { EcoBotInput, EcoBotOutput, EcoBotInputSchema, EcoBotOutputSchema } from '../schemas';
 
-
 export async function askEcoBot(input: EcoBotInput): Promise<EcoBotOutput> {
   return ecoBotFlow(input);
 }

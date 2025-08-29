@@ -18,18 +18,18 @@ const contentPrompt = ai.definePrompt({
     name: 'educationContentPrompt',
     input: { schema: EducationContentInputSchema },
     output: { schema: EducationContentOutputSchema },
-    prompt: `You are an expert environmental science writer and content curator. Your goal is to produce clear, engaging, and informative educational content for a general audience.
-    
-    The user has requested an article on the following topic: "{{topic}}"
+    prompt: `You are an expert environmental science writer. Your goal is to produce a clear, engaging, and informative article for a general audience based on the provided topic.
 
-    Please generate a well-structured article that includes:
-    1. A compelling title.
-    2. An introduction that hooks the reader.
-    3. A main body that explains the topic in detail, using simple language. Break it down into key points or sections.
-    4. Actionable tips or advice that the reader can implement in their daily life.
-    5. A concluding paragraph that summarizes the key takeaways and offers encouragement.
-    
-    In addition to the article, please find 2-3 highly relevant and informative YouTube videos on the same topic. Provide their titles and full URLs.`,
+The user has requested an article on the following topic: "{{topic}}"
+
+Generate a well-structured article that includes:
+1.  A compelling title.
+2.  An introduction that hooks the reader.
+3.  A main body that explains the topic in detail, using simple language. Break it down into key points or sections.
+4.  Actionable tips or advice that the reader can implement in their daily life.
+5.  A concluding paragraph that summarizes the key takeaways and offers encouragement.
+
+In addition to the article, find 2-3 relevant YouTube videos on the same topic and provide their titles and full URLs.`,
 });
 
 

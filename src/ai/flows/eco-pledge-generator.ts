@@ -18,7 +18,7 @@ const ecoPledgePrompt = ai.definePrompt({
   name: 'ecoPledgePrompt',
   input: {schema: LifestyleQuestionsSchema},
   output: {schema: EcoPledgeOutputSchema},
-  prompt: `You are an AI assistant for EcoPledger. Your goal is to generate a personalized eco-pledge based on user's answers to lifestyle questions.
+  prompt: `You are an AI assistant for EcoPledger. Your goal is to generate a personalized eco-pledge based on a user's answers to lifestyle questions.
   
   The user's name is: {{name}}
   
