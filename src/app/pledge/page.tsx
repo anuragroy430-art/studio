@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useTransition, useEffect } from "react";
@@ -471,5 +472,3 @@ export default function EcoPledgerPage() {
     </div>
   );
 }
-
-    
