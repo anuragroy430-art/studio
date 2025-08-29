@@ -19,16 +19,6 @@ const ecoPledgePrompt = ai.definePrompt({
   input: {schema: LifestyleQuestionsSchema},
   output: {schema: EcoPledgeOutputSchema},
   prompt: `You are an AI assistant for EcoPledger. Your goal is to generate a personalized eco-pledge based on user's answers to lifestyle questions.
-
-  Generate a response in JSON format that conforms to the following Zod schema:
-  
-  'z.object({
-    pledge: z.string().describe("The personalized eco-pledge."),
-    impact: z.string().describe("The measurable environmental impact of the pledge."),
-    motivation: z.string().describe("A motivational statement to encourage the user."),
-    audio: z.string().optional().describe("Audio of the eco-pledge using TTS"),
-    certificateUrl: z.string().optional().describe("URL of the generated pledge certificate image."),
-  })'
   
   The user's name is: {{name}}
   
@@ -43,9 +33,7 @@ const ecoPledgePrompt = ai.definePrompt({
   
   Based on these answers, create a short, inspiring "pledge" sentence.
   Then, create a sentence for the "impact" that quantifies the positive effect of their actions.
-  Finally, write a "motivation" sentence to encourage them.
-  
-  Return only the valid JSON object.`,
+  Finally, write a "motivation" sentence to encourage them.`,
 });
 
 async function toWav(

@@ -29,20 +29,7 @@ const contentPrompt = ai.definePrompt({
     4. Actionable tips or advice that the reader can implement in their daily life.
     5. A concluding paragraph that summarizes the key takeaways and offers encouragement.
     
-    In addition to the article, please find 2-3 highly relevant and informative YouTube videos on the same topic. Provide their titles and full URLs.
-
-    Generate a response in JSON format that conforms to the following Zod schema:
-
-    'z.object({
-        title: z.string().describe("The catchy and informative title of the article."),
-        content: z.string().describe("The full content of the article, formatted with markdown (e.g., using # for titles, ## for headings, and * for list items)."),
-        youtubeLinks: z.array(z.object({
-            title: z.string().describe("The title of the YouTube video."),
-            url: z.string().url().describe("The URL of the YouTube video."),
-        })).optional().describe("A list of 2-3 relevant YouTube videos with their titles and valid URLs.")
-    })'
-    
-    Return only the valid JSON object.`,
+    In addition to the article, please find 2-3 highly relevant and informative YouTube videos on the same topic. Provide their titles and full URLs.`,
 });
 
 

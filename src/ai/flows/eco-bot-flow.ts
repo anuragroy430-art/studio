@@ -40,11 +40,7 @@ const ecoBotPrompt = ai.definePrompt({
   {{/if}}
 
   User's new message: {{message}}
-
-  Please provide a helpful and friendly response in JSON format that conforms to the following Zod schema:
-  'z.object({ response: z.string() })'
-
-  Return only the valid JSON object.`,
+`,
 });
 
 const ecoBotFlow = ai.defineFlow(

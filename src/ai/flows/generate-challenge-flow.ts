@@ -23,18 +23,8 @@ const challengePrompt = ai.definePrompt({
     Based on the user's pledge, generate a single, specific, and achievable daily or weekly eco-challenge.
     
     The user's pledge is: "{{pledge}}"
-
-    Generate a response in JSON format that conforms to the following Zod schema:
-
-    'z.object({
-        title: z.string().describe("A short, catchy title for the challenge (e.g., 'Meatless Monday')."),
-        description: z.string().describe("A one or two-sentence description of what the user should do."),
-        benefit: z.string().describe("A brief explanation of the positive environmental impact of this action.")
-    })'
     
-    Make the challenge positive and encouraging. It should feel like a small step, not a huge burden.
-
-    Return only the valid JSON object.`,
+    Make the challenge positive and encouraging. It should feel like a small step, not a huge burden.`,
 });
 
 
