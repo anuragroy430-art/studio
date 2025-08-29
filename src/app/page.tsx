@@ -83,7 +83,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white pt-20">
         <Image
-          src="https://picsum.photos/seed/planet/1600/900"
+          src="https://picsum.photos/seed/nature/1600/900"
           alt="Lush green nature"
           fill
           className="object-cover"
