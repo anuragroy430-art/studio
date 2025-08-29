@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Progress } from "@/components/ui/progress";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 type BinType = "recycling" | "compost" | "waste";
 
@@ -194,6 +194,7 @@ export default function GamePage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="grid gap-4 py-6">
                     <Link href="/pledge" className="text-lg font-medium text-primary hover:underline">Take the Pledge</Link>
                     <Link href="/challenges" className="text-lg font-medium text-primary hover:underline">Challenges</Link>

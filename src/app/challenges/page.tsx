@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { handleGenerateChallenge } from "@/app/actions";
 import type { EcoChallengeOutput } from "@/ai/schemas";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export default function ChallengesPage() {
     const [pledge, setPledge] = useState("");
@@ -72,6 +72,7 @@ export default function ChallengesPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="grid gap-4 py-6">
                     <Link href="/pledge" className="text-lg font-medium text-primary hover:underline">Take the Pledge</Link>
                     <Link href="/challenges" className="text-lg font-medium text-primary hover:underline">Challenges</Link>

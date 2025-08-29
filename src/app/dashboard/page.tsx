@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const badges = [
     { id: 'pledge-maker', icon: Award, title: "Pledge Maker", description: "You made your first pledge!", requirement: 0 },
@@ -92,6 +92,7 @@ export default function DashboardPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="grid gap-4 py-6">
                     <Link href="/pledge" className="text-lg font-medium text-primary hover:underline">Take the Pledge</Link>
                     <Link href="/challenges" className="text-lg font-medium text-primary hover:underline">Challenges</Link>

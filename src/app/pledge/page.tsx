@@ -58,7 +58,7 @@ import type { EcoPledgeOutput } from "@/ai/schemas";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -246,6 +246,7 @@ export default function EcoPledgerPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="grid gap-4 py-6">
                     <Link href="/pledge" className="text-lg font-medium text-primary hover:underline">Take the Pledge</Link>
                     <Link href="/challenges" className="text-lg font-medium text-primary hover:underline">Challenges</Link>

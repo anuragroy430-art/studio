@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Leaf, Award, Users, TreePine, Target, Gauge, Gamepad2, BookOpen, Image as ImageIcon, Menu } from 'lucide-react';
 import Image from 'next/image';
 import { EcoBot } from '@/components/EcoBot';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 export default function LandingPage() {
   return (
@@ -38,6 +38,7 @@ export default function LandingPage() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="grid gap-4 py-6">
                     <Link href="/pledge" className="text-lg font-medium text-primary hover:underline">Take the Pledge</Link>
                     <Link href="/challenges" className="text-lg font-medium text-primary hover:underline">Challenges</Link>
@@ -56,7 +57,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-center text-white pt-20">
         <Image
-          src="https://picsum.photos/seed/nature/1600/900"
+          src="https://picsum.photos/seed/forest/1600/900"
           alt="Lush green nature"
           fill
           className="object-cover"
