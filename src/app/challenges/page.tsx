@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { handleGenerateChallenge } from "@/app/actions";
 import type { EcoChallengeOutput } from "@/ai/schemas";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function ChallengesPage() {
     const [pledge, setPledge] = useState("");
@@ -56,7 +56,7 @@ export default function ChallengesPage() {
               </h1>
             </div>
           </Link>
-          <nav className="hidden md:flex gap-4 items-center">
+          <nav className="flex flex-wrap gap-4 items-center">
             <Link href="/pledge" className="text-primary hover:underline">Take the Pledge</Link>
             <Link href="/dashboard" className="text-primary hover:underline">Dashboard</Link>
             <Link href="/community" className="text-primary hover:underline">Community</Link>
@@ -64,53 +64,6 @@ export default function ChallengesPage() {
             <Link href="/education" className="text-primary hover:underline">Learn</Link>
             <Link href="/greenify" className="text-primary hover:underline">Greenify</Link>
           </nav>
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Open navigation menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="p-0">
-                
-                 <div className="flex items-center gap-3 p-4 border-b">
-                    <Leaf className="w-8 h-8 text-primary" />
-                    <h2 className="text-2xl font-bold font-headline text-primary">EcoPledger</h2>
-                </div>
-                <nav className="grid gap-2 p-4">
-                    <Link href="/pledge" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                        <Award className="h-5 w-5" />
-                        Take the Pledge
-                    </Link>
-                    <Link href="/challenges" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary bg-muted font-semibold">
-                        <Target className="h-5 w-5" />
-                        Challenges
-                    </Link>
-                    <Link href="/dashboard" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                        <Gauge className="h-5 w-5" />
-                        Dashboard
-                    </Link>
-                    <Link href="/community" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                        <Users className="h-5 w-5" />
-                        Community
-                    </Link>
-                    <Link href="/game" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                        <Gamepad2 className="h-5 w-5" />
-                        Waste Sorting Game
-                    </Link>
-                    <Link href="/education" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                        <BookOpen className="h-5 w-5" />
-                        Learn
-                    </Link>
-                    <Link href="/greenify" prefetch={false} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted">
-                        <ImageIcon className="h-5 w-5" />
-                        Greenify
-                    </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
         </div>
       </header>
 
