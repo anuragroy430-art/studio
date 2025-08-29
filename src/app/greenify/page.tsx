@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition } from "react";
@@ -73,7 +74,7 @@ export default function GreenifyPage() {
     };
 
     return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
         <header className="py-6 bg-card shadow-sm">
             <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
             <Link href="/" className="inline-block">
@@ -144,7 +145,7 @@ export default function GreenifyPage() {
 
         <main className="flex-grow py-12 md:py-16">
             <div className="container mx-auto px-4 max-w-4xl">
-                <Card className="shadow-2xl border-2 border-primary/10 mb-12">
+                <Card className="shadow-2xl border-2 border-primary/10 mb-12 animate-in fade-in zoom-in-95 duration-500">
                     <CardHeader className="text-center">
                         <div className="w-fit mx-auto p-3 bg-primary/10 rounded-full mb-2">
                             <ImageIcon className="w-8 h-8 text-primary" />
@@ -158,7 +159,7 @@ export default function GreenifyPage() {
                         <div className="space-y-2">
                              <label htmlFor="image-upload" className="font-semibold text-lg">1. Upload an Image</label>
                              <div className="flex items-center gap-4">
-                                <Button asChild variant="outline">
+                                <Button asChild variant="outline" className="transition-transform hover:scale-105 active:scale-100">
                                     <label htmlFor="image-upload" className="cursor-pointer">
                                         <Upload className="mr-2 h-5 w-5" />
                                         Choose File
@@ -170,7 +171,7 @@ export default function GreenifyPage() {
                         </div>
 
                         {originalImage && (
-                            <div className="p-4 border rounded-lg bg-muted/50">
+                            <div className="p-4 border rounded-lg bg-muted/50 animate-in fade-in duration-500">
                                 <h3 className="font-semibold mb-2">Image Preview:</h3>
                                 <Image src={originalImage} alt="Preview" width={400} height={300} className="rounded-md mx-auto" />
                             </div>
@@ -187,7 +188,7 @@ export default function GreenifyPage() {
                             />
                         </div>
 
-                        <Button onClick={handleSubmit} disabled={isPending || !originalImage || !prompt.trim()} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7">
+                        <Button onClick={handleSubmit} disabled={isPending || !originalImage || !prompt.trim()} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 transition-transform hover:scale-105 active:scale-100">
                             {isPending ? (
                                 <>
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -204,32 +205,32 @@ export default function GreenifyPage() {
                 </Card>
 
                 {isPending && (
-                    <div className="text-center p-8">
+                    <div className="text-center p-8 animate-in fade-in duration-500">
                          <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto" />
                          <p className="mt-4 text-lg text-muted-foreground">The AI is working its magic... This can take up to a minute.</p>
                     </div>
                 )}
 
                 {result && (
-                    <Card className="shadow-lg border-2 border-accent bg-background">
+                    <Card className="shadow-lg border-2 border-accent bg-background animate-in fade-in slide-in-from-bottom-10 duration-700">
                          <CardHeader>
                             <CardTitle className="text-2xl font-headline text-center text-primary">Your Greenified Image</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-8">
                            <div className="grid md:grid-cols-3 items-center gap-4">
-                                <div className="space-y-2 text-center">
+                                <div className="space-y-2 text-center animate-in fade-in zoom-in-95 duration-500">
                                     <h3 className="font-bold text-lg">Original</h3>
                                     {originalImage && <Image src={originalImage} alt="Original" width={300} height={300} className="rounded-md border-2" />}
                                 </div>
-                                <div className="flex justify-center">
+                                <div className="flex justify-center animate-in fade-in duration-500 delay-200">
                                     <ArrowRight className="w-12 h-12 text-primary" />
                                 </div>
-                                <div className="space-y-2 text-center">
+                                <div className="space-y-2 text-center animate-in fade-in zoom-in-95 duration-500 delay-400">
                                     <h3 className="font-bold text-lg text-primary">Greenified</h3>
                                     <Image src={result.greenifiedImageUrl} alt="Greenified result" width={300} height={300} className="rounded-md border-2 border-primary" />
                                 </div>
                            </div>
-                           <div className="p-4 rounded-lg bg-primary/10 flex items-start gap-4">
+                           <div className="p-4 rounded-lg bg-primary/10 flex items-start gap-4 animate-in fade-in slide-in-from-bottom-5 duration-500 delay-500">
                                 <Lightbulb className="w-8 h-8 text-primary mt-1" />
                                 <div>
                                     <h4 className="font-bold text-primary">Eco-Suggestion</h4>

@@ -45,7 +45,7 @@ export default function ChallengesPage() {
     };
 
     return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <header className="py-6 bg-card shadow-sm">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="inline-block">
@@ -116,7 +116,7 @@ export default function ChallengesPage() {
 
       <main className="flex-grow py-12 md:py-16">
         <div className="container mx-auto px-4 max-w-2xl">
-          <Card className="shadow-2xl border-2 border-primary/10">
+          <Card className="shadow-2xl border-2 border-primary/10 animate-in fade-in zoom-in-95 duration-500">
             <CardHeader className="text-center">
                 <div className="w-fit mx-auto p-3 bg-primary/10 rounded-full mb-2">
                     <Target className="w-8 h-8 text-primary" />
@@ -142,7 +142,7 @@ export default function ChallengesPage() {
                 </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleSubmit} disabled={isPending || !pledge.trim()} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7">
+              <Button onClick={handleSubmit} disabled={isPending || !pledge.trim()} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 transition-transform hover:scale-105 active:scale-100">
                 {isPending ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -158,9 +158,9 @@ export default function ChallengesPage() {
             </CardFooter>
           </Card>
 
-          <div className={cn("transition-all duration-1000 ease-in-out mt-12", challenge ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none")}>
+          <div className={cn("transition-all duration-700 ease-in-out mt-12", challenge ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none")}>
             {challenge && (
-                <Card className="shadow-lg border-2 border-accent bg-accent/10">
+                <Card className="shadow-lg border-2 border-accent bg-accent/10 animate-in fade-in slide-in-from-bottom-10 duration-700">
                     <CardHeader>
                         <CardTitle className="text-2xl font-headline text-center text-accent-foreground">{challenge.title}</CardTitle>
                     </CardHeader>

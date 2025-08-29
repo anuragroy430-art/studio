@@ -122,7 +122,7 @@ export default function GamePage() {
   };
 
   const renderStartScreen = () => (
-    <Card className="text-center shadow-2xl">
+    <Card className="text-center shadow-2xl animate-in fade-in zoom-in-95 duration-500">
       <CardHeader>
         <CardTitle className="text-3xl font-headline">Waste Sorting Challenge!</CardTitle>
         <CardDescription className="text-lg">Can you sort the items into the correct bins before time runs out?</CardDescription>
@@ -134,13 +134,13 @@ export default function GamePage() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button size="lg" className="w-full text-lg" onClick={startGame}>Start Game</Button>
+        <Button size="lg" className="w-full text-lg transition-transform hover:scale-105 active:scale-100" onClick={startGame}>Start Game</Button>
       </CardFooter>
     </Card>
   );
 
   const renderGameOverScreen = () => (
-    <Card className="text-center shadow-2xl">
+    <Card className="text-center shadow-2xl animate-in fade-in zoom-in-95 duration-500">
       <CardHeader>
         <Trophy className="w-12 h-12 mx-auto text-primary mb-2" />
         <CardTitle className="text-3xl font-headline">Game Over!</CardTitle>
@@ -153,7 +153,7 @@ export default function GamePage() {
         <p className="font-medium pt-2">Keep practicing to improve your score and become a sorting champion!</p>
       </CardContent>
       <CardFooter>
-        <Button size="lg" className="w-full text-lg" onClick={startGame}>
+        <Button size="lg" className="w-full text-lg transition-transform hover:scale-105 active:scale-100" onClick={startGame}>
           <RefreshCw className="mr-2" />
           Play Again
         </Button>
@@ -163,42 +163,44 @@ export default function GamePage() {
 
   const renderGameScreen = () => (
     <div className="space-y-6">
-        <Card className="relative text-center shadow-lg min-h-[220px] flex flex-col justify-center items-center overflow-hidden p-4">
+        <Card className={cn("relative text-center shadow-lg min-h-[220px] flex flex-col justify-center items-center overflow-hidden p-4",
+            feedback === 'incorrect' && 'animate-in shake'
+        )}>
             <div className={cn("absolute inset-0 transition-colors duration-300 z-0", 
                 feedback === 'correct' && 'bg-green-500/20', 
                 feedback === 'incorrect' && 'bg-red-500/20'
             )} />
             <div className="relative z-10">
                 {feedback === 'correct' && lastFact ? (
-                     <div className="flex flex-col items-center gap-2 animate-in fade-in duration-500">
+                     <div className="flex flex-col items-center gap-2 animate-in fade-in zoom-in-95 duration-500">
                         <Lightbulb className="w-10 h-10 text-yellow-400" />
                         <h3 className="font-bold text-lg">Did you know?</h3>
                         <p className="text-base text-foreground/90">{lastFact}</p>
                     </div>
                 ) : (
-                    <>
+                    <div className="animate-in fade-in zoom-in-95 duration-300">
                         <p className="text-6xl mb-2">{currentItem.emoji}</p>
                         <p className="text-2xl font-bold">{currentItem.name}</p>
-                    </>
+                    </div>
                 )}
             </div>
             {feedback && (
-                <div className="absolute top-2 right-2 p-2 rounded-full bg-background z-20">
+                <div className="absolute top-2 right-2 p-2 rounded-full bg-background z-20 animate-in zoom-in-50 duration-300">
                     {feedback === 'correct' ? <CheckCircle className="w-8 h-8 text-green-500" /> : <XCircle className="w-8 h-8 text-red-500" />}
                 </div>
             )}
         </Card>
         
         <div className="grid grid-cols-3 gap-4">
-            <Button onClick={() => handleSort("recycling")} variant="outline" className="h-24 text-lg flex-col gap-2 border-2 border-blue-500 hover:bg-blue-500/10" disabled={!!feedback}>
+            <Button onClick={() => handleSort("recycling")} variant="outline" className="h-24 text-lg flex-col gap-2 border-2 border-blue-500 hover:bg-blue-500/10 transition-transform hover:scale-105 active:scale-100" disabled={!!feedback}>
                 <Recycle className="w-8 h-8 text-blue-500" />
                 Recycling
             </Button>
-            <Button onClick={() => handleSort("compost")} variant="outline" className="h-24 text-lg flex-col gap-2 border-2 border-green-700 hover:bg-green-700/10" disabled={!!feedback}>
+            <Button onClick={() => handleSort("compost")} variant="outline" className="h-24 text-lg flex-col gap-2 border-2 border-green-700 hover:bg-green-700/10 transition-transform hover:scale-105 active:scale-100" disabled={!!feedback}>
                 <Dna className="w-8 h-8 text-green-700" />
                 Compost
             </Button>
-            <Button onClick={() => handleSort("waste")} variant="outline" className="h-24 text-lg flex-col gap-2 border-2 border-gray-600 hover:bg-gray-600/10" disabled={!!feedback}>
+            <Button onClick={() => handleSort("waste")} variant="outline" className="h-24 text-lg flex-col gap-2 border-2 border-gray-600 hover:bg-gray-600/10 transition-transform hover:scale-105 active:scale-100" disabled={!!feedback}>
                 <Trash2 className="w-8 h-8 text-gray-600" />
                 Waste
             </Button>
@@ -215,7 +217,7 @@ export default function GamePage() {
   );
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <header className="py-6 bg-card shadow-sm">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="inline-block">
@@ -298,5 +300,3 @@ export default function GamePage() {
     </div>
   );
 }
-
-    

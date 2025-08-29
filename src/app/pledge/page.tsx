@@ -225,7 +225,7 @@ export default function EcoPledgerPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <header className="py-6 bg-card shadow-sm">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="inline-block">
@@ -297,7 +297,7 @@ export default function EcoPledgerPage() {
       <main className="flex-grow">
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 max-w-2xl">
-            <Card className="shadow-2xl border-2 border-primary/10">
+            <Card className="shadow-2xl border-2 border-primary/10 animate-in fade-in zoom-in-95 duration-500">
               <CardHeader className="text-center">
                 <CardTitle className="text-3xl font-headline">Create Your Eco-Pledge</CardTitle>
                 <CardDescription className="text-lg">
@@ -345,7 +345,7 @@ export default function EcoPledgerPage() {
                     ))}
                   </CardContent>
                   <CardFooter>
-                    <Button type="submit" disabled={isPending} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7">
+                    <Button type="submit" disabled={isPending} size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-7 transition-transform hover:scale-105 active:scale-100">
                       {isPending ? (
                         <>
                           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -372,7 +372,7 @@ export default function EcoPledgerPage() {
           {pledge && (
             <section className="py-16 md:py-24 bg-card">
               <div className="container mx-auto px-4 max-w-4xl">
-                <Card className="shadow-lg border-2 border-primary/20 bg-background">
+                <Card className="shadow-lg border-2 border-primary/20 bg-background animate-in fade-in slide-in-from-bottom-10 duration-700">
                   <CardHeader className="text-center">
                     <TreePine className="w-12 h-12 mx-auto text-primary mb-2" />
                     <CardTitle className="text-3xl font-headline text-primary">Your Personalized Eco-Pledge</CardTitle>
@@ -407,7 +407,7 @@ export default function EcoPledgerPage() {
                             {pledge.audio && (
                             <>
                                 <audio ref={audioRef} src={pledge.audio} onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onEnded={() => setIsPlaying(false)} preload="auto" />
-                                <Button variant="outline" onClick={toggleAudio} className="w-full text-lg py-6">
+                                <Button variant="outline" onClick={toggleAudio} className="w-full text-lg py-6 transition-transform hover:scale-105 active:scale-100">
                                 {isPlaying ? <Pause className="mr-2" /> : <Volume2 className="mr-2" />}
                                 {isPlaying ? "Pause" : "Listen to Your Pledge"}
                                 </Button>
@@ -438,7 +438,7 @@ export default function EcoPledgerPage() {
                                 </div>
                             )}
                              {pledge.certificateUrl && (
-                                <Button onClick={downloadCertificate} className="w-full" size="lg">
+                                <Button onClick={downloadCertificate} className="w-full transition-transform hover:scale-105 active:scale-100" size="lg">
                                 <Download className="mr-2" />
                                 Download Certificate
                                 </Button>
@@ -449,10 +449,10 @@ export default function EcoPledgerPage() {
                   <CardFooter className="flex-col gap-4 pt-6">
                     <p className="font-semibold text-primary">Share your pledge and inspire others!</p>
                     <div className="flex gap-4">
-                      <Button variant="outline" size="icon" onClick={shareOnTwitter} aria-label="Share on Twitter">
+                      <Button variant="outline" size="icon" onClick={shareOnTwitter} aria-label="Share on Twitter" className="rounded-full transition-transform hover:scale-110 active:scale-100">
                         <Twitter className="w-5 h-5 text-primary" />
                       </Button>
-                      <Button variant="outline" size="icon" onClick={shareOnLinkedIn} aria-label="Share on LinkedIn">
+                      <Button variant="outline" size="icon" onClick={shareOnLinkedIn} aria-label="Share on LinkedIn" className="rounded-full transition-transform hover:scale-110 active:scale-100">
                         <Linkedin className="w-5 h-5 text-primary" />
                       </Button>
                     </div>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition, useRef, useEffect } from "react";
@@ -58,7 +59,7 @@ export function EcoBot() {
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           size="icon"
-          className="rounded-full w-16 h-16 shadow-lg bg-primary hover:bg-primary/90"
+          className="rounded-full w-16 h-16 shadow-lg bg-primary hover:bg-primary/90 transition-transform duration-300 hover:scale-110"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X className="w-8 h-8" /> : <Bot className="w-8 h-8" />}
@@ -68,7 +69,7 @@ export function EcoBot() {
 
       <div className={cn("fixed bottom-24 right-6 z-50 transition-all duration-300 ease-in-out", 
         isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none")}>
-        <Card className="w-[350px] shadow-2xl">
+        <Card className="w-[350px] shadow-2xl animate-in fade-in zoom-in-95">
           <CardHeader className="flex flex-row items-center gap-3 space-y-0 pb-4 border-b">
             <Sparkles className="w-6 h-6 text-primary" />
             <CardTitle className="font-headline">Eco-Bot</CardTitle>
@@ -76,14 +77,14 @@ export function EcoBot() {
           <CardContent className="p-0">
             <ScrollArea className="h-96 w-full" ref={scrollAreaRef}>
               <div className="p-4 space-y-4">
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
                     <div className="p-2 bg-primary/10 rounded-full"><Bot className="w-6 h-6 text-primary" /></div>
                     <div className="bg-muted p-3 rounded-lg max-w-[80%]">
                         <p className="text-sm">Hi there! I'm Eco-Bot. Ask me anything about sustainability or environmental impact.</p>
                     </div>
                 </div>
                 {messages.map((m, i) => (
-                  <div key={i} className={cn("flex items-start gap-3", m.role === 'user' && 'justify-end')}>
+                  <div key={i} className={cn("flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-500", m.role === 'user' && 'justify-end')}>
                     {m.role === 'model' && <div className="p-2 bg-primary/10 rounded-full"><Bot className="w-6 h-6 text-primary" /></div>}
                     <div className={cn("p-3 rounded-lg max-w-[80%]", m.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
                       <p className="text-sm">{m.content}</p>

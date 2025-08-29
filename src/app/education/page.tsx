@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition } from "react";
@@ -74,7 +75,7 @@ export default function EducationPage() {
     };
 
     return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <header className="py-6 bg-card shadow-sm">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="inline-block">
@@ -145,7 +146,7 @@ export default function EducationPage() {
 
       <main className="flex-grow py-12 md:py-16">
         <div className="container mx-auto px-4 max-w-3xl">
-          <Card className="shadow-2xl border-2 border-primary/10 mb-12">
+          <Card className="shadow-2xl border-2 border-primary/10 mb-12 animate-in fade-in zoom-in-95 duration-500">
             <CardHeader className="text-center">
                 <div className="w-fit mx-auto p-3 bg-primary/10 rounded-full mb-2">
                     <BookOpen className="w-8 h-8 text-primary" />
@@ -165,14 +166,14 @@ export default function EducationPage() {
                         className="text-base flex-grow"
                         onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                     />
-                    <Button onClick={() => handleSubmit()} disabled={isPending || !topic.trim()} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Button onClick={() => handleSubmit()} disabled={isPending || !topic.trim()} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground transition-transform hover:scale-105 active:scale-100">
                         <WandSparkles className="mr-2 h-5 w-5" />
                         Generate
                     </Button>
                 </div>
                 <div className="flex flex-wrap gap-2 justify-center pt-2">
                     {suggestedTopics.map(t => (
-                        <Button key={t} variant="outline" size="sm" onClick={() => { setTopic(t); handleSubmit(t);}}>
+                        <Button key={t} variant="outline" size="sm" onClick={() => { setTopic(t); handleSubmit(t);}} className="transition-transform hover:scale-105 active:scale-100">
                            <Lightbulb className="mr-2 h-4 w-4" /> {t}
                         </Button>
                     ))}
@@ -188,7 +189,7 @@ export default function EducationPage() {
                 </div>
             )}
             {article && (
-                <Card className="shadow-lg border-2 border-accent bg-background">
+                <Card className="shadow-lg border-2 border-accent bg-background animate-in fade-in slide-in-from-bottom-10 duration-700">
                     <CardHeader>
                         <CardTitle className="text-4xl font-headline text-center text-primary">{article.title}</CardTitle>
                     </CardHeader>
@@ -203,7 +204,7 @@ export default function EducationPage() {
                             <h3 className="text-2xl font-bold font-headline text-primary">Further Watching</h3>
                             <div className="space-y-3">
                             {article.youtubeLinks.map((video, index) => (
-                                <a key={index} href={video.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+                                <a key={index} href={video.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group transition-colors hover:bg-muted/50 p-2 rounded-lg">
                                 <Youtube className="w-8 h-8 text-red-600" />
                                 <div className="flex-1">
                                     <p className="font-semibold group-hover:underline">{video.title}</p>

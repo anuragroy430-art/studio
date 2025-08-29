@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -64,7 +65,7 @@ export default function DashboardPage() {
     }
 
     return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <header className="py-6 bg-card shadow-sm">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="inline-block">
@@ -135,12 +136,12 @@ export default function DashboardPage() {
 
       <main className="flex-grow py-12 md:py-16">
         <div className="container mx-auto px-4 max-w-4xl">
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 animate-in fade-in slide-in-from-top-10 duration-700">
                 <h2 className="text-4xl md:text-5xl font-bold font-headline mb-2">Your Dashboard</h2>
                 <p className="text-lg text-foreground/80">Track your progress, earn badges, and make a difference!</p>
             </div>
 
-            <Card className="mb-8 shadow-lg border-2 border-primary/10">
+            <Card className="mb-8 shadow-lg border-2 border-primary/10 animate-in fade-in zoom-in-95 duration-500 delay-200">
                 <CardHeader>
                     <CardTitle className="text-2xl font-headline">Your Active Pledge</CardTitle>
                 </CardHeader>
@@ -150,7 +151,7 @@ export default function DashboardPage() {
                 </CardContent>
             </Card>
 
-            <Card className="mb-8 shadow-lg">
+            <Card className="mb-8 shadow-lg animate-in fade-in zoom-in-95 duration-500 delay-300">
                 <CardHeader>
                     <CardTitle>Your Progress</CardTitle>
                     <CardDescription>Log your daily sustainable activities to make progress.</CardDescription>
@@ -163,14 +164,14 @@ export default function DashboardPage() {
                     <Progress value={(progress / maxProgress) * 100} className="h-4" />
                 </CardContent>
                 <CardFooter>
-                    <Button onClick={logActivity} disabled={progress >= maxProgress} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Button onClick={logActivity} disabled={progress >= maxProgress} size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground transition-transform hover:scale-105 active:scale-100">
                         <CheckCircle className="mr-2 h-5 w-5" />
                         {progress >= maxProgress ? "Goal Complete!" : "Log Today's Activity"}
                     </Button>
                 </CardFooter>
             </Card>
             
-            <Card className="shadow-lg">
+            <Card className="shadow-lg animate-in fade-in zoom-in-95 duration-500 delay-400">
                 <CardHeader>
                     <CardTitle>Badges Earned</CardTitle>
                     <CardDescription>Unlock new badges by sticking to your pledge.</CardDescription>
@@ -178,12 +179,12 @@ export default function DashboardPage() {
                 <CardContent>
                     <TooltipProvider>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                            {badges.map(badge => (
+                            {badges.map((badge, index) => (
                                 <Tooltip key={badge.id}>
                                     <TooltipTrigger asChild>
-                                        <div className="flex flex-col items-center gap-2">
+                                        <div className="flex flex-col items-center gap-2 animate-in fade-in zoom-in-95" style={{animationDelay: `${index * 150}ms`}}>
                                             <div className={cn(
-                                                "p-4 rounded-full transition-all duration-300",
+                                                "p-4 rounded-full transition-all duration-300 transform hover:scale-110",
                                                 earnedBadges.has(badge.id) ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                                             )}>
                                                 <badge.icon className="w-10 h-10" />

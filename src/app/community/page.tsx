@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -98,7 +99,7 @@ export default function CommunityPage() {
     };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
+    <div className="flex flex-col min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <header className="py-6 bg-card shadow-sm">
         <div className="container mx-auto px-6 lg:px-8 flex justify-between items-center">
           <Link href="/" className="inline-block">
@@ -169,7 +170,7 @@ export default function CommunityPage() {
 
       <main className="flex-grow py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-in fade-in slide-in-from-top-10 duration-700">
             <Users className="w-12 h-12 mx-auto text-primary mb-4" />
             <h2 className="text-4xl md:text-5xl font-bold font-headline mb-2">Community Hub</h2>
             <p className="text-lg text-foreground/80 max-w-3xl mx-auto">
@@ -177,8 +178,8 @@ export default function CommunityPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Card>
+          <div className="grid md:grid-cols-3 gap-6 mb-12 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-200">
+            <Card className="transition-transform hover:scale-105">
               <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Pledges</CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
@@ -188,7 +189,7 @@ export default function CommunityPage() {
                 <p className="text-xs text-muted-foreground">+2,012 since last month</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="transition-transform hover:scale-105">
               <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Water Saved (Est.)</CardTitle>
                 <Droplets className="h-4 w-4 text-muted-foreground" />
@@ -198,7 +199,7 @@ export default function CommunityPage() {
                 <p className="text-xs text-muted-foreground">Equivalent to 6 Olympic pools</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="transition-transform hover:scale-105">
               <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">CO2 Reduction (Est.)</CardTitle>
                 <BarChart className="h-4 w-4 text-muted-foreground" />
@@ -210,7 +211,7 @@ export default function CommunityPage() {
             </Card>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-12">
+          <div className="grid lg:grid-cols-3 gap-8 mb-12 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-400">
             <Card className="lg:col-span-2">
                 <CardHeader>
                     <CardTitle>Global Pledges</CardTitle>
@@ -239,7 +240,7 @@ export default function CommunityPage() {
                         </TableHeader>
                         <TableBody>
                             {leaderboardData.map(user => (
-                                <TableRow key={user.rank}>
+                                <TableRow key={user.rank} className="transition-colors hover:bg-primary/5">
                                     <TableCell className="font-bold text-lg">{user.rank}</TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-3">
@@ -261,7 +262,7 @@ export default function CommunityPage() {
           
           <Separator className="my-12" />
 
-          <div>
+          <div className="animate-in fade-in slide-in-from-bottom-10 duration-700 delay-500">
              <div className="text-center mb-12">
                 <TrendingUp className="w-12 h-12 mx-auto text-primary mb-4" />
                 <h2 className="text-4xl font-bold font-headline mb-2">Community Feed</h2>
@@ -281,7 +282,7 @@ export default function CommunityPage() {
                             onChange={(e) => setNewPost(e.target.value)}
                             className="min-h-[80px]"
                         />
-                         <Button onClick={handlePostSubmit} disabled={!newPost.trim()} className="w-full">
+                         <Button onClick={handlePostSubmit} disabled={!newPost.trim()} className="w-full transition-transform hover:scale-105 active:scale-100">
                             <Send className="mr-2 h-4 w-4" />
                             Post to Feed
                         </Button>
@@ -290,7 +291,7 @@ export default function CommunityPage() {
 
                 <div className="space-y-6">
                     {communityFeed.map((item, index) => (
-                        <Card key={index} className="shadow-md">
+                        <Card key={index} className="shadow-md animate-in fade-in duration-500" style={{animationDelay: `${index * 100}ms`}}>
                             <CardContent className="p-4 flex items-start gap-4">
                                 <Avatar className="h-11 w-11 border-2 border-primary/50">
                                     <AvatarImage src={`https://i.pravatar.cc/48?u=${item.name}`} alt={item.name} />
